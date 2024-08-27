@@ -1,0 +1,622 @@
+#!/usr/bin/awk -f
+#
+# This is Yoshi's Generic Preprocessor, a line-based generic file preprocessor.
+#
+# Copyright 2022-2024 Dennis Camera (dennis.camera at riiengineering.ch)
+#
+# This file is part of ygpp.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# Usage: ygpp somefile...
+
+function input_error(lvl, msg,    prefix) {
+	if ("error" == lvl) {
+		prefix = (COLOURED_OUTPUT ? "\033[1;91merror:\033[0m " : "error: ")
+	} else if ("warning" == lvl) {
+		prefix = (COLOURED_OUTPUT ? "\033[33mwarning:\033[0m " : "warning: ")
+	}
+	printf "%s:%u: %s%s\n", ("-" != FILENAME ? FILENAME : "stdin"), FNR, prefix, msg | "cat >&2"
+	close("cat >&2")
+}
+
+function input_nextline(    _r) {
+	if (INCFILENAME) {
+		_r = getline < INCFILENAME
+	} else {
+		_r = getline
+	}
+
+	if (0 > _r) {
+		fatal("reading from file `" (INCFILENAME ? INCFILENAME : FILENAME) "' failed.")
+	}
+	return _r
+}
+
+function warn(errmsg) {
+	input_error("warning", errmsg)
+}
+
+function fatal(errmsg) {
+	input_error("error", errmsg)
+	exit (e=1)
+}
+
+function abs(x) {
+	return 0 <= x ? x : -x
+}
+
+function bool(v) {
+	if (v ~ /^(TRUE|[Tt]rue)$/)
+		return 1
+	else if (v ~ /^(FALSE|[Ff]alse)$/)
+		return 0
+	else if (v ~ /^[0-9]+$/)
+		return !!int(v)
+	else
+		return 0
+}
+
+function dirname(path) {
+	if (path ~ /\//) {
+		sub(/\/[^\/]*$/, "", path)
+	} else {
+		path = "."
+	}
+	return path
+}
+
+function has_command(command) {
+	return 0 == system("command -v " shquot(command) " >/dev/null 2>&1")
+}
+
+function command_output(cmd,    _l, _res) {
+	while (0 < (cmd | getline _l)) {
+		_res = (_res ? _res ORS : "") _l
+	}
+	close(cmd)
+	return _res
+}
+
+function resolve_path(path) {
+	gsub(/\/{2,}/, "/", path)
+	gsub(/\/\.\//, "/", path)
+	while (sub(/(^|[^/]+\/)\.\.(\/|$)/, "", path));
+	return path
+}
+
+function resolve_symlink(path,    _x) {
+	if (0 == system("test -h " shquot(path))) {
+		if (!__resolve_symlink_cmd) {
+			if (has_command("readlink")) {
+				__resolve_symlink_cmd = "readlink"
+			} else if (has_command("file")) {
+				__resolve_symlink_cmd = "file"
+			} else if (has_command("realpath")) {
+				__resolve_symlink_cmd = "realpath"
+			}
+		}
+
+		if ("readlink" == __resolve_symlink_cmd) {
+			_x = command_output("readlink " shquot(path))
+			_x = dirname(path) "/" _x
+			return _x
+		} else if ("file" == __resolve_symlink_cmd) {
+			# POSIX
+			_x = command_output("LC_ALL=C file -h " shquot(path))
+			sub("^" path ": symbolic link to ", "", _x)
+			_x = dirname(path) "/" _x
+			return _x
+		} else if ("realpath" == __resolve_symlink_cmd) {
+			return command_output("realpath " shquot(path))
+		} else {
+			fatal("the symbolic link `" path "' could not be resolved due to an operating system limitation")
+		}
+	} else {
+		return path
+	}
+}
+
+function log_depend(file, depends) {
+	if (!LOG_DEPEND) return
+
+	sub(/^\.\//, "", file)
+	sub(/^\.\//, "", depends)
+
+	printf "%s: %s" ORS, file, depends >> LOG_DEPEND
+}
+
+function getopt(opts, argv, target, files,    i, c, lv, idx, nf) {
+	# trivial getopt(3) implementation; only basic functionality
+	i = 1
+	if (argv[1] == "--") ++i
+	for (; i in argv; ++i) {
+		if (lv) { target[c] = argv[i]; lv = 0; continue }
+		if (argv[i] ~ /^-/) {
+			c = substr(argv[i], 2, 1)
+			idx = index(opts, c)
+			if (!idx) {
+				fatal(sprintf("invalid option -%c\n", c))
+				continue
+			}
+			if (substr(opts, idx + 1, 1) == ":") {
+				# option takes argument
+				if (length(argv[i]) > 2)
+					target[c] = substr(argv[i], 3)
+				else
+					lv = 1
+			} else {
+				target[c] = 1
+			}
+		} else {
+			files[++nf] = argv[i]
+		}
+	}
+}
+
+function copytoargv(new_argv,    _i) {
+	for (_i = 1; _i in new_argv; ++_i) {
+		ARGV[_i] = new_argv[_i]
+	}
+	ARGC = _i
+}
+
+function isdef(var) {
+	return (var in DEFIN) || (var in ENVIRON)
+}
+
+function getdef(var) {
+	if (var in DEFIN)
+		return DEFIN[var]
+	else if (var in ENVIRON)
+		return ENVIRON[var]
+}
+
+function shquot(s) {
+	gsub(/'/, "'\\''", s)
+	return "'" s "'"
+}
+
+function expand_definitions(src,    _stack, _res, _var, _t, _old_RSTART, _old_RLENGTH) {
+	# NOTE: This function ignores escaped characters!
+
+	# save RSTART, RLENGTH
+	_old_RSTART = RSTART
+	_old_RLENGTH = RLENGTH
+
+	while (match(src, /%\{[A-Za-z0-9_]+\}/)) {
+		_res = _res substr(src, 1, RSTART - 1)
+
+		_var = substr(src, RSTART + 2, RLENGTH - 3)
+		if (!isdef(_var)) {
+			fatal(_var " is not defined")
+		}
+
+		if (_var in _stack) {
+			# self-referencing expansion, treat as literal like cpp(1)
+			_res = _res substr(src, RSTART, RLENGTH)
+		} else {
+			# expand
+			_t = getdef(_var)
+			++_stack[_var]
+			_res = _res expand_definitions(_t, _stack)
+		}
+
+		src = substr(src, RSTART + RLENGTH)
+	}
+
+	# restore RSTART, RLENGTH
+	RSTART = _old_RSTART
+	RLENGTH = _old_RLENGTH
+
+	return _res src
+}
+
+function eval_shell_cmd(cmd,    _k) {
+	# export #defines to executed sub command
+	# in POSIX awk it is implementation-defined whether modifications to ENVIRON
+	# are available to sub-processes.
+	# Thus, any #defines made need to be exported to sub-processes.
+	cmd = "; " cmd
+	for (_k in DEFIN) {
+		cmd = " " _k "=" shquot(DEFIN[_k]) cmd
+	}
+	cmd = ((cmd ~ /^;/) ? ":" : "export") cmd
+
+	return system(cmd)
+}
+
+function _p_update(p_name,    _i, _s) {
+	# NOTE: values > 0 are considered true
+	_s = 1
+	for (_i = 1; _i <= p_stacks[p_name, "p_last"]; ++_i) {
+		if (0 >= p_stacks[p_name, _i]) {
+			_s = 0
+			break
+		}
+	}
+	p_stacks[p_name, "p_state"] = _s
+}
+
+function p_push(p_name, type, v) {
+	++p_stacks[p_name, "p_last"]
+	p_stacks[p_name, p_stacks[p_name, "p_last"]] = v
+	p_stacks[p_name, p_stacks[p_name, "p_last"] ".loc"] = FILENAME ":" FNR
+	p_stacks[p_name, p_stacks[p_name, "p_last"] ".type"] = type
+	_p_update(p_name)
+}
+
+function p_pop(p_name, type,   _ov) {
+	if (p_isempty(p_name)) {
+		fatal(sprintf("no matching #%s for #end%s", type, type))
+	}
+	if (type != p_stacks[p_name, p_stacks[p_name, "p_last"] ".type"]) {
+		fatal(sprintf("cannot close #%s with #end%s (opened at %s)",
+		              p_stacks[p_name, p_stacks[p_name, "p_last"] ".type"],
+		              type,
+		              p_stacks[p_name, p_stacks[p_name, "p_last"] ".loc"]))
+	}
+	_ov = p_stacks[p_name, p_stacks[p_name, "p_last"]]
+	delete p_stacks[p_name, p_stacks[p_name, "p_last"] ".meta"]
+	delete p_stacks[p_name, p_stacks[p_name, "p_last"] ".loc"]
+	delete p_stacks[p_name, p_stacks[p_name, "p_last"] ".type"]
+	delete p_stacks[p_name, p_stacks[p_name, "p_last"]]
+	--p_stacks[p_name, "p_last"]
+	_p_update(p_name)
+	return _ov
+}
+
+function p_set(p_name, v) {
+	# update the value of the top of the p_stack,
+	# this is used for switching conditional branches (if/switch)
+
+	if (p_isempty(p_name)) return
+
+	p_stacks[p_name, p_stacks[p_name, "p_last"]] = v
+	_p_update(p_name)
+}
+
+function p_meta(p_name, v) {
+	if (p_isempty(p_name)) return
+
+	if ("" != v) {
+		p_stacks[p_name, p_stacks[p_name, "p_last"] ".meta"] = v
+	}
+	return p_stacks[p_name, p_stacks[p_name, "p_last"] ".meta"]
+}
+
+function p_last(p_name, info) {
+	return p_stacks[p_name, p_stacks[p_name, "p_last"] (info ? "."info : "")]
+}
+
+function p_state(p_name) {
+	# an empty p_stack is considered true
+	return p_isempty(p_name) || p_stacks[p_name, "p_state"]
+}
+
+function p_isempty(p_name) {
+	return (1 > p_stacks[p_name, "p_last"])
+}
+
+function p_delete(p_name,    _k) {
+	for (_k in p_stacks)
+		if (index(_k, p_name SUBSEP) == 1)
+			delete p_stacks[_k]
+}
+
+function splitinto(s, a, k, fs,    _c, _i, _t) {
+	_c = split(s, _t, fs)
+	for (_i = 1; _i <= _c; ++_i) {
+		a[k, _i] = _t[_i]
+	}
+	return _c
+}
+
+function eval_input(p_name,    _iname, _res, _x) {
+	if (/^#[a-z]/) {
+		# processor directive
+		_iname = substr($1, 2)
+	}
+
+	if (_iname == "dnl") {
+		# comment, ignore
+	} else if (_iname == "error") {
+		if (p_state(p_name)) {
+			_x["msg"] = $0
+			sub(/^#error[ \t]+/, "", _x["msg"])
+			fatal(_x["msg"])
+		}
+	} else if (_iname == "if") {
+		# evaluate argument as shell command
+		_x["cmd"] = $0
+		sub(/^#if[ \t]+/, "", _x["cmd"])
+		# short-circuit if already in a falsey block
+		_x["cond"] = p_state(p_name) && !eval_shell_cmd(_x["cmd"])
+		p_push(p_name, "if", _x["cond"])
+	} else if (_iname == "ifbool") {
+		if (p_state(p_name)) {
+			while ($2 ~ /^!/) { _x["inv"]++; $2 = substr($2, 2) }
+			_x["boolval"] = bool(getdef($2))
+			if (_x["inv"] % 2)
+				_x["boolval"] = !_x["boolval"]
+		} else {
+			_x["boolval"] = 0
+		}
+		p_push(p_name, "if", _x["boolval"])
+	} else if (_iname == "ifdef") {
+		p_push(p_name, "if", !!isdef($2))
+	} else if (_iname == "ifndef") {
+		p_push(p_name, "if", !isdef($2))
+	} else if (_iname == "else") {
+		if ("if" != p_last(p_name, "type")) {
+			fatal("#else can only be used within an #if")
+		}
+
+		p_set(p_name, !p_last(p_name))
+	} else if (_iname == "endif") {
+		p_pop(p_name, "if")
+	} else if (_iname == "switch") {
+		p_push(p_name, "switch", 0)
+		p_meta(p_name, $2)
+	} else if (_iname == "case") {
+		if ("switch" != p_last(p_name, "type")) {
+			fatal("#case can only be used within a #switch")
+		}
+
+		_x["caseval"] = $0
+		sub(/^#case[ \t]+/, "", _x["caseval"])
+		_x["boolval"] = (getdef(p_meta(p_name)) == _x["caseval"])
+
+		if (2 == abs(p_last(p_name))) {
+			fatal("#default must be the last branch in a #switch")
+		}
+		p_set(p_name, (_x["boolval"] ? 1 : -abs(p_last(p_name))))
+	} else if (_iname == "default") {
+		if ("switch" != p_last(p_name, "type")) {
+			fatal("#default can only be used within a #switch")
+		}
+
+		# state 2 is default match (=no case match),
+		#      -2 is default no match (=case match)
+		p_set(p_name, 2 * (p_last(p_name) ? -1 : 1))
+	} else if (_iname == "endswitch") {
+		p_pop(p_name, "switch")
+	} else if (_iname == "define") {
+		# XXX: expand value at definition or expansion???
+		if (p_state(p_name)) {
+			_x["value"] = substr($0, index($0, $2) + length($2))
+			sub(/^[ \t]+/, "", _x["value"])
+			DEFIN[$2] = _x["value"]
+		}
+	} else if (_iname == "undef") {
+		if (p_state(p_name)) {
+			delete DEFIN[$2]
+			delete ENVIRON[$2]
+		}
+	} else if (_iname == "defblock") {
+		_x["blockname"] = $2
+
+		if ("defblock" == p_name) {
+			fatal("#defblocks cannot be nested")
+		}
+
+		if (p_state(p_name)) {
+			if (_x["blockname"] in s_blocks)
+				fatal("block `" _x["blockname"] "' is already defined")
+			# register block even if it's empty
+			s_blocks[_x["blockname"]] = ""
+		}
+
+		p_push(p_name, "block", 1)
+		p_meta(p_name, _x["blockname"])
+
+		while (0 < input_nextline()) {
+			if (/^#endblock([ \t]|$)/) {
+				_x["endline"] = $0
+				break
+			}
+			if (p_state(p_name)) {
+				s_blocks[_x["blockname"]] = s_blocks[_x["blockname"]] eval_input("defblock")
+			}
+		}
+		if (!p_isempty("defblock")) {
+			fatal("unclosed #" p_last("defblock", "type") " in #defblock")
+		}
+		p_delete("defblock")
+
+		if (_x["endline"]) {
+			$0 = _x["endline"]
+			_res = _res eval_input(p_name)
+		}
+	} else if (_iname == "endblock") {
+		p_pop(p_name, "block")
+	} else if (_iname == "warning") {
+		if (p_state(p_name)) {
+			_x["msg"] = $0
+			sub(/^#warning[ \t]+/, "", _x["msg"])
+			warn(_x["msg"])
+		}
+	} else {
+		# directives which produce output
+		if (!p_state(p_name))
+			return
+
+		if (_iname == "useblock") {
+			if (!($2 in s_blocks))
+				fatal("no block named " $2)
+			_res = s_blocks[$2]
+		} else if (_iname == "foreach") {
+			# process #foreach line
+			_x["loopvar"] = $2
+			$1 = $2 = ""
+			_x["numforitems"] = splitinto(expand_definitions($0), _x, "foritems", " ")
+
+			p_push(p_name, "foreach", 1)
+
+			# FIXME: nested loops
+
+			# read and store loop body
+			_x["loopbody_lines"] = 0
+			while (0 < input_nextline()) {
+				if (/^#endforeach([ \t]|$)/) {
+					_x["endline"] = $0
+					break
+				}
+				++_x["loopbody_lines"]
+				_x["loopbody", _x["loopbody_lines"]] = $0
+			}
+
+			if (_x["endline"] && p_state(p_name) && 0 < _x["loopbody_lines"]) {
+				if (_x["loopvar"] in DEFIN) {
+					_x["olddef"] = DEFIN[_x["loopvar"]]
+				}
+
+				# iterate loop
+				for (_x["i"] = 1; _x["i"] <= _x["numforitems"]; ++_x["i"]) {
+					DEFIN[_x["loopvar"]] = _x["foritems", _x["i"]]
+					for (_x["l"] = 1; _x["l"] <= _x["loopbody_lines"]; ++_x["l"]) {
+						$0 = _x["loopbody", _x["l"]]
+						_res = _res eval_input(p_name)
+					}
+				}
+
+				if ("olddef" in _x) {
+					DEFIN[_x["loopvar"]] = _x["olddef"]
+				} else {
+					delete DEFIN[_x["loopvar"]]
+				}
+			}
+
+			if (_x["endline"]) {
+				$0 = _x["endline"]
+				_res = _res eval_input(p_name)
+			}
+		} else if (_iname == "endforeach") {
+			p_pop(p_name, "foreach")
+		} else if (_iname == "include") {
+			# store old file variables
+			_x["old_INCFILENAME"] = INCFILENAME
+			_x["old_FILENAME"] = FILENAME
+			_x["old_FNR"] = FNR
+
+			_x["incfile"] = $0
+			sub(/^#include[ \t]+/, "", _x["incfile"])
+
+			if (_x["incfile"] !~ /^\//) {
+				# convert relative path to absolute
+				_x["incfile"] = dirname(resolve_symlink(_x["old_FILENAME"])) "/" _x["incfile"]
+			}
+			_x["incfile"] = resolve_path(_x["incfile"])
+
+			log_depend(FILENAME, _x["incfile"])
+
+			# override file variables
+			INCFILENAME = _x["incfile"]
+			FILENAME = INCFILENAME
+			FNR = 0
+
+			while (1) {
+				_x["getline_status"] = (getline < _x["incfile"])
+				if (0 < _x["getline_status"]) {
+					++NR; ++FNR
+					_res = _res eval_input(p_name)
+				} else {
+					close(_x["incfile"])
+
+					# restore file variables
+					INCFILENAME = _x["old_INCFILENAME"]
+					FILENAME = _x["old_FILENAME"]
+					FNR = _x["old_FNR"]
+
+					if (0 > _x["getline_status"]) {
+						fatal("reading from file `" _x["incfile"] "' failed.")
+					}
+					break
+				}
+			}
+		} else if (_iname) {
+			fatal("invalid directive: #" _iname)
+		} else {
+			_x["rest"] = $0
+			do {
+				# allow escaping of characters
+				if (match(_x["rest"], /[\\]./)) {
+					# consume part up to and including escaped character
+					_x["prefix"] = substr(_x["rest"], 1, RSTART-1)
+					_x["eschar"] = substr(_x["rest"], RSTART+1, 1)
+					_x["rest"] = substr(_x["rest"], RSTART + RLENGTH)
+				} else {
+					# consume all
+					_x["prefix"] = _x["rest"]
+					_x["eschar"] = ""
+					_x["rest"] = ""
+				}
+
+				# variable expansion (on "prefix")
+				# NOTE: ensure that the } is not the last character (%{foo\})
+				while (match(_x["prefix"], /%\{[A-Za-z0-9_]+\}/)) {
+					# expand and add to _res, then process the rest
+					_res = _res substr(_x["prefix"], 1, RSTART - 1)
+					_res = _res expand_definitions(substr(_x["prefix"], RSTART, RLENGTH))
+					_x["prefix"] = substr(_x["prefix"], RSTART + RLENGTH)
+				}
+
+				# append the rest of "prefix" and the escaped character (if any)
+				# to _res
+				_res = _res _x["prefix"] _x["eschar"]
+			} while (_x["rest"])
+			_res = _res ORS
+		}
+
+		return _res
+	}
+}
+
+BEGIN {
+	FS = " "  # defaults
+
+	if ("NOCOLOR" in ENVIRON)
+		COLOURED_OUTPUT = 0
+	else if ("always" == ENVIRON["COLOR"])
+		COLOURED_OUTPUT = 1
+	else
+		COLOURED_OUTPUT = (0 == system("test -t 1"))
+
+	split("", opts)
+	split("", files)
+	getopt("D:h", ARGV, opts, files)
+
+	if (opts["h"]) {
+		# TODO: print help
+		exit (e=0)
+	}
+
+	if (opts["D"]) {
+		LOG_DEPEND = opts["D"]
+		printf "" > LOG_DEPEND
+	}
+
+	# set files to ARGV (now that the options are parsed)
+	copytoargv(files)
+}
+
+{
+	printf "%s", eval_input("main")
+}
+
+END {
+	if ((0 == e) && !p_isempty("main")) {
+		fatal(sprintf("unclosed #%s (opened at %s)", p_last("main", "type"), p_last("main", "loc")))
+	}
+}

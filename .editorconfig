@@ -1,0 +1,18 @@
+root = true
+
+[*]
+indent_size = 4
+indent_style = tab
+
+[{*.html,*.html.in,*.html.in.*}]
+file_type_emacs = web
+
+[{*.css,*.css.in}]
+file_type_emacs = web
+
+[{.htaccess,htaccess.in}]
+file_type_emacs = apache
+
+[GNUmakefile]
+indent_style = tab
+file_type_emacs = makefile

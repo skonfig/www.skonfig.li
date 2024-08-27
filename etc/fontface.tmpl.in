@@ -1,0 +1,67 @@
+#if test -n "${FONT_SUBSET}"
+#define url_prefix %{FONTS_DIR}/%{FONT_FAMILY}/%{FONT_NAME}_%{FONT_SUBSET}
+#else
+#define url_prefix %{FONTS_DIR}/%{FONT_FAMILY}/%{FONT_NAME}
+#endif
+@font-face {
+	font-family: "%{FONT_FAMILY}";
+#switch FONT_STYLE
+#case Regular
+	font-weight: normal;
+	font-style: normal;
+#case Bold
+	font-weight: bold;
+	font-style: normal;
+#case It
+	font-weight: normal;
+	font-style: italic;
+#case BoldIt
+	font-weight: bold;
+	font-style: italic;
+#case Black
+#case BlackIt
+#case Light
+#case ExtraLight
+#case SemiboldIt
+#case MediumIt
+#endswitch
+#if case ${FORMATS} in (*eot*) : ;; (*) ! : ;; esac
+	src: url("%{url_prefix}.eot");
+#endif
+	src:
+		local("%{FONT_FAMILY}"),
+#foreach f %{FORMATS}
+#if case ${FORMATS} in ("${f}"|*" ${f}") : ;; (*) ! : ;; esac
+#define urlsep ;
+#else
+#define urlsep ,
+#endif
+#switch f
+#case eot
+		url("%{url_prefix}.eot?#iefix") format("embedded-opentype")%{urlsep}
+#case svg
+		url("%{url_prefix}.svg") format("svg")%{urlsep}
+#case ttf
+		url("%{url_prefix}.ttf") format("truetype")%{urlsep}
+#case woff
+		url("%{url_prefix}.woff") format("woff")%{urlsep}
+#case woff2
+		url("%{url_prefix}.woff2") format("woff2")%{urlsep}
+#endswitch
+#endforeach
+#ifdef FONT_DISPLAY
+	font-display: %{FONT_DISPLAY};
+#else
+#switch FONT_STYLE
+#case Regular
+	font-display: block;
+#case It
+	font-display: block;
+#default
+	font-display: swap;
+#endswitch
+#endif
+#if test -n "${RANGE}"
+	unicode-range: %{RANGE};
+#endif
+}

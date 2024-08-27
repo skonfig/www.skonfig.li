@@ -1,0 +1,6 @@
+/config.mk
+/dist.tar.gz
+/public/
+*.d
+*~
+.DS_Store

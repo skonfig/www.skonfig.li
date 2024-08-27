@@ -1,0 +1,22 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>homepage.mk</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content="ygpp (https://github.com/riiengineering/ygpp)" />
+		<link rel="canonical" href="%{SITE_URL}%{URL_CANONICAL}" />
+#ifndef AVAILABLE_LANGS
+#define AVAILABLE_LANGS %{LANGS}
+#endif
+#ifdef FILEBASE
+#foreach l %{AVAILABLE_LANGS}
+		<link rel="alternate" hreflang="%{l}" href="%{SITE_URL}%{URL_CANONICAL}.%{l}" />
+#endforeach
+#endif
+	</head>
+	<body bgcolor="white">
+		<h1>Hello</h1>
+	</body>
+</html>
