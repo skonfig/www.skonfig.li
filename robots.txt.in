@@ -3,6 +3,10 @@ User-agent: *
 Disallow: /
 
 #endif
+#ifbool BLOCK_AI_ROBOTS
+#include ai.robots.txt
+
+#endif
 #if test -n "${SITE_URL}" -a -n "${SITEMAP-}"
 Sitemap: %{SITE_URL}/%{SITEMAP}
 #endif

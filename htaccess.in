@@ -1,0 +1,9 @@
+#dnl -*- mode: apache; indent-tabs-mode: t -*-
+#dnl
+#ifbool BLOCK_AI_ROBOTS
+################################################################################
+# block bots
+
+#include ai.robots.htaccess
+
+#endif

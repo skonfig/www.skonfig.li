@@ -27,6 +27,8 @@ PAGES = \
 	index.html
 
 FILES = \
+	.htaccess \
+	robots.txt \
 	$(SITEMAP)
 
 .DEFAULT: default
@@ -67,8 +69,14 @@ $(DESTDIR)/.htaccess: htaccess.in | $(DESTDIR)/.
 # custom dependencies
 $(DESTDIR)/css/style.css: $(foreach font,$(FONTS),$(DESTDIR)/fonts/$(font).css)
 
-ifdef GEN_SITEMAP
-# NOTE: robots.txt needs sitemap, because it links to it
-$(DESTDIR)/robots.txt: $(CONFIG_MK) $(MAKEFILE) | $(DESTDIR)/$(SITEMAP)
+ifneq (,$(call bool,$(BLOCK_AI_ROBOTS)))
+# NOTE: robots.txt needs ai.robots.txt, because it includes it
+$(DESTDIR)/robots.txt: ai.robots.txt
+# NOTE: .htaccess needs ai.robots.htaccess, because it includes it
+$(DESTDIR)/.htaccess: ai.robots.htaccess
 endif
 
+ifdef GEN_SITEMAP
+# NOTE: robots.txt needs sitemap, because it links to it
+$(DESTDIR)/robots.txt: | $(DESTDIR)/$(SITEMAP)
+endif

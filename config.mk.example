@@ -4,6 +4,7 @@ GEN_SITEMAP = true
 LINK_LANG = de
 PUBLIC = true
 SITE_DOMAIN = www.riiengineering.ch
+BLOCK_AI_ROBOTS = true
 
 ################################################################################
 # IndexNow

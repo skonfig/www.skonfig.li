@@ -17,6 +17,7 @@ plugins and complex to navigate web interfaces.
 * font format conversions and subsetting,
 * sitemap.xml generation,
 * robots.txt,
+* automatic blocking of AI training robots,
 * [IndexNow](https://www.indexnow.org/),
 * add custom rules for whatever else you need :-)
 

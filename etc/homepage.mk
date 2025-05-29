@@ -2,13 +2,31 @@
 
 # call bool,value
 define bool
-$(shell printf '\#ifbool B\n1\n\#endif\n' | B='$(1)' $(YGPP) -)
+$(shell printf '\#ifbool B\n1\n\#endif\n' | B=$(call shquot,$(1)) $(YGPP) -)
 endef
 
 # call dirname,path,suffix
 define dirname
 $(patsubst %/,%$(2),$(dir $(patsubst %/.,%,$(1))))
 endef
+
+# call download,url
+ifneq (,$(shell command -v curl 2>/dev/null))
+define download_stdout
+	curl -L -o - $(call shquot,$(1))
+endef
+else
+ifneq (,$(shell command -v wget 2>/dev/null))
+define download_stdout
+	wget -O - $(call shquot,$(1))
+endef
+else
+define download_stdout
+$(error Cannot find curl(1) or wget(1) to download $(1))
+endef
+endif
+endif
+
 
 # call pathsearch,command-name
 define pathsearch

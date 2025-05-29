@@ -1,4 +1,5 @@
 /config.mk
+/ai.robots.*
 /dist.tar.gz
 /public/
 *.d
