@@ -9,7 +9,7 @@ URL_CANONICAL=$(call shquot,$(patsubst %.$(1),%,$(patsubst $(DESTDIR)%,%,$@))) \
 $(YGPP) -- -D $<.d $< >$@
 endef
 
-$(DESTDIR)/%: %.in | $(ALL_DIRS)
+$(DESTDIR)/%: %.in $(CONFIG_MK) | $(ALL_DIRS)
 	$(call MK_YGPP)
 
 # for all pages, use {page}.html.{lang}.in if it exists, or a

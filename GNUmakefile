@@ -63,7 +63,7 @@ endif
 
 # custom files
 
-$(DESTDIR)/.htaccess: htaccess.in | $(DESTDIR)/.
+$(DESTDIR)/.htaccess: htaccess.in $(CONFIG_MK) | $(DESTDIR)/.
 	$(MK_YGPP)
 
 # custom dependencies
