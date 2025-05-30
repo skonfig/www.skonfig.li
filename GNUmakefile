@@ -3,7 +3,7 @@ MAKEFILE := $(lastword $(MAKEFILE_LIST))
 SITEMAP = sitemap.xml
 
 # website content lists
-LANGS = de en
+LANGS = en
 
 DIRS = \
 	.well-known
