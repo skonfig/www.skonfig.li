@@ -12,4 +12,7 @@
 	And best of all: you already know how to use it
 	(if you know shell scripts).
 </p>
+<p>
+	Are you ready? &raquo; <a href="install.html.%{PAGE_LANG}">installation</a>
+</p>
 #include inc/footer.in

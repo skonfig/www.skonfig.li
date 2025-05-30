@@ -3,34 +3,64 @@
 #include inc/header.in
 <h1>Installation</h1>
 
+<h3>Requirements</h3>
+<p>
+	To use skonfig you need a computer where all of the
+	configuration is stored and which can run the
+	<b>skonfig</b>(1) executable and a fleet of computers
+	which you want to manage (we call them targets).
+</p>
+<p>
+	System requirements (config host):
+	<ul>
+		<li>a POSIX-compatible operating system (e.g. Linux, BSD, Mac OS X, AIX),</li>
+		<li>with Python 3 (&ge; version 3.2) installed,</li>
+		<li>can connect to the targets via SSH</li>
+	</ul>
+</p>
+<p>
+	System requirements (targets):
+	<ul>
+		<li>
+			a POSIX-compatible operating system
+			(skonfig supports pretty much anything:
+			various Linux distributions, BSDs, Mac OS X,
+			AIX, Solaris/Illumos any many more),</li>
+		<li>runs an SSH server</li>
+	</ul>
+</p>
+
+<h3>Installation</h3>
+
+skonfig uses the <code>~/.skonfig</code> directory to store the configuration:
+
 <code><pre>
-# clone skonfig itself
+mkdir -p \
+    ~/.skonfig/files \
+    ~/.skonfig/manifest \
+    ~/.skonfig/set \
+    ~/.skonfig/type \
+</pre></code>
+
+The skonfig executable can also be installed in there for simplicity:
+<code><pre>
 git clone \
-    https://github.com/skonfig/skonfig \
+    https://github.com/skonfig/skonfig.git \
     ~/.skonfig/skonfig
 
-# get base types and explorers
+# add skonfig to path
+ln -s ../../.skonfig/skonfig/bin/skonfig \
+    ~/.local/bin/skonfig
+</pre></code>
+
+Then, you probably want to install the base and extra sets as a starting point by cloning them to the <code>~/.skonfig/set</code> directory:
+<code><pre>
 git clone \
     https://github.com/skonfig/base \
     ~/.skonfig/set/base
 
-# and extra goodies
 git clone \
     https://github.com/skonfig/extra \
     ~/.skonfig/set/extra
-
-# add skonfig to path
-ln -s ~/.skonfig/skonfig/bin/skonfig \
-    ~/.local/bin/skonfig
-
-# place for your own files, types and manifests
-mkdir -p \
-    ~/.skonfig/files \
-    ~/.skonfig/type \
-    ~/.skonfig/manifest
-
-# copy example initial manifest
-cp ~/.skonfig/skonfig/docs/examples/init-manifest \
-    ~/.skonfig/manifest/init
 </pre></code>
 #include inc/footer.in
