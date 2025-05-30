@@ -1,0 +1,42 @@
+		<ul id="nav" role="navigation" aria-label="contents">
+			<li>
+#switch URL_CANONICAL
+#case /index.html
+				<a href="index.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_HOME}</a>
+#default
+				<a href="index.html.%{PAGE_LANG}" class="nav-link">%{PAGE_HOME}</a>
+#endswitch
+			</li>
+			<li>
+#switch URL_CANONICAL
+#case /install.html
+				<a href="install.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_INSTALL}</a>
+#default
+				<a href="install.html.%{PAGE_LANG}" class="nav-link">%{PAGE_INSTALL}</a>
+#endswitch
+			</li>
+			<li>
+#switch URL_CANONICAL
+#case /docs.html
+				<a href="docs.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_DOCS}</a>
+#default
+				<a href="docs.html.%{PAGE_LANG}" class="nav-link">%{PAGE_DOCS}</a>
+#endswitch
+			</li>
+			<li>
+#switch URL_CANONICAL
+#case /reference.html
+				<a href="reference.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_REFERENCE}</a>
+#default
+				<a href="reference.html.%{PAGE_LANG}" class="nav-link">%{PAGE_REFERENCE}</a>
+#endswitch
+			</li>
+			<li>
+#switch URL_CANONICAL
+#case /source.html
+				<a href="source.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_SOURCE}</a>
+#default
+				<a href="source.html.%{PAGE_LANG}" class="nav-link">%{PAGE_SOURCE}</a>
+#endswitch
+			</li>
+		</ul>
