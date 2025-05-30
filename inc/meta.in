@@ -1,28 +1,28 @@
 #include variables.in
-		<title>%{META_TITLE}</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>%{META_TITLE}</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 #ifdef META_DESCRIPTION
-		<meta name="description" content="%{META_DESCRIPTION}" />
+<meta name="description" content="%{META_DESCRIPTION}" />
 #endif
 #ifdef META_KEYWORDS
-		<meta name="keywords" content="%{META_KEYWORDS}" />
+<meta name="keywords" content="%{META_KEYWORDS}" />
 #endif
-		<meta name="generator" content="ygpp (https://github.com/riiengineering/ygpp)" />
+<meta name="generator" content="ygpp (https://github.com/riiengineering/ygpp)" />
 #ifdef URL_CANONICAL
-		<link rel="canonical" href="%{SITE_URL}%{URL_CANONICAL}" />
+<link rel="canonical" href="%{SITE_URL}%{URL_CANONICAL}" />
 #endif
 #ifndef AVAILABLE_LANGS
 #define AVAILABLE_LANGS %{LANGS}
 #endif
 #ifdef FILEBASE
 #foreach l %{AVAILABLE_LANGS}
-		<link rel="alternate" hreflang="%{l}" href="%{SITE_URL}%{URL_CANONICAL}.%{l}" />
+<link rel="alternate" hreflang="%{l}" href="%{SITE_URL}%{URL_CANONICAL}.%{l}" />
 #endforeach
 #endif
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 #foreach ati_size 180 152 144 120 114 76 72 57
-		<link rel="apple-touch-icon-precomposed" sizes="%{ati_size}x%{ati_size}" href="/apple-touch-icon.%{ati_size}.png" />
+<link rel="apple-touch-icon-precomposed" sizes="%{ati_size}x%{ati_size}" href="/apple-touch-icon.%{ati_size}.png" />
 #endforeach
-		<link rel="apple-touch-icon" href="/apple-touch-icon.57.png" />
-		<link rel="icon" sizes="192x192" href="/touch-icon.192.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.57.png" />
+<link rel="icon" sizes="192x192" href="/touch-icon.192.png" />

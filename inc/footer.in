@@ -1,3 +1,21 @@
-		<p id="footer">
-			 Copyright &copy; 2025 - the skonfig hackers. <a href="mailto:%{contactmail}">Contact</a>
-		</p>
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+</td>
+<td id="nav" valign="top">
+#include nav.in
+</td>
+</tr>
+<tr><td></td></tr>
+<tr>
+<td></td>
+<td colspan="3">
+	<br /><img src="img/black.gif" height="1" width="100" align="left" alt="__________" />
+	<p id="footer">
+		Copyright &copy; 2025 - the skonfig hackers.
+		<a href="mailto:%{contactmail}">Contact</a>
+	</p>
+</td>
+</tr>
+</table>
+</font>
+</body>
+</html>

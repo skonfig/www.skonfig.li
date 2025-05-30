@@ -1,183 +1,144 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
 #define PAGE_TITLE %{PAGE_REFERENCE}
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="en">
-	<head>
-#include inc/meta.in
-		<basefont face="monospace" size="14" />
-	</head>
-	<body bgcolor="white">
-		<table border="0" cellpadding="0" cellspacing="0">
-			<tr id="header">
-				<td id="page-title" align="right" valign="bottom" colspan="2">
-					<h1>%{META_TITLE}</h1>
-				</td>
-				<td rowspan="3" height="100%" width="25">
-					<img src="img/black.gif" width="1" height="100%" alt="" border="0" align="right" valign="top" />
-				</td>
-				<td id="logo" cellpadding="0"><img src="img/skonfig_logo.png" height="160" width="160" alt="" valign="bottom" /></td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<img src="img/black.gif" width="100%" height="1" align="top" border="0" alt="" />
-				</td>
-			</tr>
-			<tr>
-				<td width="20"></td>
-				<td id="content" valign="top">
-					<h1>Quick reference</h1>
+#include inc/header.in
+<h1>Quick reference</h1>
 
-					<p>
-						Jump to:
-						<a href="#environment-variables">environment variables</a>,
-						<a href="#type-structure">type file structure</a>,
-						<a href="#dotskonfig-structure"><tt>.skonfig</tt> file structure</a>,
-						<a href="#global-explorers">global explorers</a>.
-					</p>
+<p>
+	Jump to:
+	<a href="#environment-variables">environment variables</a>,
+	<a href="#type-structure">type file structure</a>,
+	<a href="#dotskonfig-structure"><tt>.skonfig</tt> file structure</a>,
+	<a href="#global-explorers">global explorers</a>.
+</p>
 
 
-					<h2 id="environment-variables">Environment variables</h2>
+<h2 id="environment-variables">Environment variables</h2>
 
-					<p>
-						The followng environment variables are set by the skonfig runtime for use in types, manifests etc.:
+<p>
+	The followng environment variables are set by the skonfig runtime for use in types, manifests etc.:
 
-						<dl>
-							<dt><tt>__cdist_dry_run</tt></dt>
-							<dd>...</dd>
+	<dl>
+		<dt><tt>__cdist_dry_run</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__explorer</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__explorer</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__files</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__files</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__global</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__global</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__manifest</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__manifest</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__messages_in</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__messages_in</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__messages_out</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__messages_out</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__object</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__object</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__object_id</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__object_id</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__object_name</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__object_name</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__target_host</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__target_host</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__target_hostname</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__target_hostname</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__target_fqdn</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__target_fqdn</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__type</tt></dt>
-							<dd>...</dd>
+		<dt><tt>__type</tt></dt>
+		<dd>...</dd>
 
-							<dt><tt>__type_explorer</tt></dt>
-							<dd>...</dd>
-						</dl>
-					</p>
-
-
-					<h2 id="type-structure">Type file structure</h2>
-
-					<p>
-
-					</p>
+		<dt><tt>__type_explorer</tt></dt>
+		<dd>...</dd>
+	</dl>
+</p>
 
 
-					<h2 id="dotskonfig-structure">.skonfig file structure</h2>
+<h2 id="type-structure">Type file structure</h2>
 
-					<p>
+<p>
 
-					</p>
+</p>
 
 
-					<h2 id="global-explorers">global explorers</h2>
+<h2 id="dotskonfig-structure">.skonfig file structure</h2>
 
-					<p>
-						<b>NOTE:</b> The global explorers are part of the
-						<a href="https://github.com/skonfig/base.git">base</a> set
-						and are only available if you have it installed.<br />
-						Also, depending on the version you have installed there
-						may be some slight differences to what is documented
-						here.  This is just a quick reference so you don't have
-						to check the sources every time <tt>:-)</tt>.
-					</p>
+<p>
 
-					<dl>
-						<dt><tt>cpu_cores</tt></dt>
-						<dd>
-							The number of CPU cores available on the
-							target.<br />
-							Note that this number includes virtual SMT threads.
-						</dd>
-						<dt><tt>cpu_sockets</tt></dt>
-						<dd>The number of CPU sockets in use on the target.</dd>
-						<dt><tt>disks</tt></dt>
-						<dd>
-							Disks available on the target (excl. RAM disks,
-							floppies, CDROMs).<br />
-							The content is a space separated list of device
-							names (e.g. <tt>sda</tt> or <tt>wd0</tt>).
-						</dd>
-						<dt><tt>hostname</tt></dt>
-						<dd>The current (running) hostname of the target.</dd>
-						<dt><tt>init</tt></dt>
-						<dd>
-							The name of the init system (PID 1) on the target.
-						</dd>
-						<dt><tt>interfaces</tt></dt>
-						<dd>...</dd>
-						<dt><tt>kernel_name</tt></dt>
-						<dd>...</dd>
-						<dt><tt>lsb_codename</tt></dt>
-						<dd>...</dd>
-						<dt><tt>lsb_description</tt></dt>
-						<dd>...</dd>
-						<dt><tt>lsb_id</tt></dt>
-						<dd>...</dd>
-						<dt><tt>lsb_release</tt></dt>
-						<dd>...</dd>
-						<dt><tt>machine</tt></dt>
-						<dd>...</dd>
-						<dt><tt>machine_type</tt></dt>
-						<dd>...</dd>
-						<dt><tt>memory</tt></dt>
-						<dd>...</dd>
-						<dt><tt>os</tt></dt>
-						<dd>...</dd>
-						<dt><tt>os_release</tt></dt>
-						<dd>...</dd>
-						<dt><tt>os_version</tt></dt>
-						<dd>...</dd>
-						<dt><tt>runlevel</tt></dt>
-						<dd>...</dd>
-					</dl>
-				</td>
-				<td id="nav" valign="top">
-#include inc/nav.in
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="3">
-					<br /><img src="img/black.gif" height="1" width="100" align="left" alt="__________" />
+</p>
+
+
+<h2 id="global-explorers">global explorers</h2>
+
+<p>
+	<b>NOTE:</b> The global explorers are part of the
+	<a href="https://github.com/skonfig/base.git">base</a> set
+	and are only available if you have it installed.<br />
+	Also, depending on the version you have installed there
+	may be some slight differences to what is documented
+	here.  This is just a quick reference so you don't have
+	to check the sources every time <tt>:-)</tt>.
+</p>
+
+<dl>
+	<dt><tt>cpu_cores</tt></dt>
+	<dd>
+		The number of CPU cores available on the
+		target.<br />
+		Note that this number includes virtual SMT threads.
+	</dd>
+	<dt><tt>cpu_sockets</tt></dt>
+	<dd>The number of CPU sockets in use on the target.</dd>
+	<dt><tt>disks</tt></dt>
+	<dd>
+		Disks available on the target (excl. RAM disks,
+		floppies, CDROMs).<br />
+		The content is a space separated list of device
+		names (e.g. <tt>sda</tt> or <tt>wd0</tt>).
+	</dd>
+	<dt><tt>hostname</tt></dt>
+	<dd>The current (running) hostname of the target.</dd>
+	<dt><tt>init</tt></dt>
+	<dd>
+		The name of the init system (PID 1) on the target.
+	</dd>
+	<dt><tt>interfaces</tt></dt>
+	<dd>...</dd>
+	<dt><tt>kernel_name</tt></dt>
+	<dd>...</dd>
+	<dt><tt>lsb_codename</tt></dt>
+	<dd>...</dd>
+	<dt><tt>lsb_description</tt></dt>
+	<dd>...</dd>
+	<dt><tt>lsb_id</tt></dt>
+	<dd>...</dd>
+	<dt><tt>lsb_release</tt></dt>
+	<dd>...</dd>
+	<dt><tt>machine</tt></dt>
+	<dd>...</dd>
+	<dt><tt>machine_type</tt></dt>
+	<dd>...</dd>
+	<dt><tt>memory</tt></dt>
+	<dd>...</dd>
+	<dt><tt>os</tt></dt>
+	<dd>...</dd>
+	<dt><tt>os_release</tt></dt>
+	<dd>...</dd>
+	<dt><tt>os_version</tt></dt>
+	<dd>...</dd>
+	<dt><tt>runlevel</tt></dt>
+	<dd>...</dd>
+</dl>
 #include inc/footer.in
-				</td>
-			</tr>
-		</table>
-	</body>
-</html>
