@@ -1,9 +1,175 @@
 #dnl -*- mode: apache; indent-tabs-mode: t -*-
-#dnl
-#ifbool BLOCK_AI_ROBOTS
+# .htaccess for www.skonfig.li
+
 ################################################################################
-# block bots
+# Directory index
+
+<IfModule mod_dir.c>
+	DirectoryIndex index.html index.txt
+	DirectorySlash On
+</IfModule>
+
+
+################################################################################
+# Response headers
+
+<IfModule mod_headers.c>
+	<IfModule mod_setenvif.c>
+		# detect browsers for browser-specific headers (currently only IE)
+		BrowserMatch "MSIE [0-9]+(\.[0-9]+)?; Windows" is_msie_win
+	</IfModule>
+
+	# X-UA-Compatible
+	<FilesMatch ".+\.html?(\.[a-z]+)?$">
+		Header always set X-UA-Compatible "IE=edge" env=is_msie_win
+		Header always append Vary "User-Agent"
+	</FilesMatch>
+</IfModule>
+
+
+################################################################################
+# MIME types
+
+<IfModule mod_mime.c>
+	AddType application/font-woff .woff
+
+	AddEncoding x-compress .Z
+	AddEncoding x-gzip .gz
+	AddEncoding br .br
+	AddEncoding zstd .zst
+
+#foreach l %{LANGS}
+	AddLanguage %{l} .%{l}
+#endforeach
+	LanguagePriority %{LANGS}
+</IfModule>
+#ifbool BLOCK_AI_ROBOTS
+
+
+################################################################################
+# Block bots
 
 #include ai.robots.htaccess
-
 #endif
+
+
+################################################################################
+# Content negotiation
+
+<IfModule mod_negotiation.c>
+	Options +MultiViews
+	ForceLanguagePriority Prefer
+
+	<IfModule mod_mime.c>
+		MultiviewsMatch NegotiatedOnly
+	</IfModule>
+</IfModule>
+
+
+################################################################################
+# Security
+
+<IfModule mod_ssl.c>
+	<IfModule mod_headers.c>
+		<IfModule mod_rewrite.c>
+			RewriteEngine On
+
+			# Redirect to HTTPS if user agent wants to
+			RewriteCond \%{HTTPS} !=on
+			RewriteCond \%{HTTP:Upgrade-Insecure-Requests} =1
+			RewriteRule ^ https://\%{HTTP_HOST}\%{REQUEST_URI} [QSA,L,R=301,E=REQ_UPGRADED]
+			Header always append Vary "Upgrade-Insecure-Requests" env=REQ_UPGRADED
+		</IfModule>
+
+		# Add HSTS header for HTTPS connections
+		Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+	</IfModule>
+</IfModule>
+
+# headers
+<IfModule mod_headers.c>
+	Header always set Access-Control-Allow-Origin "*"
+	Header always append Vary "Origin"
+
+	Header always set Referer-Policy "no-referer"
+	Header always set X-Frame-Options "SAMEORIGIN"
+
+	# CSP
+	Header always set Content-Security-Policy "default-src 'self'; style-src 'self'; script-src 'none'; connect-src 'none'; worker-src 'none'; object-src 'none'"
+</IfModule>
+
+
+################################################################################
+# Cache control
+
+<IfModule mod_headers.c>
+#ifbool !DEBUG
+	<FilesMatch ".+\.(jpe?g|png|gif|svg|webp|jxl|avif|ico)">
+		# images
+		Header set Cache-Control "public, max-age=86400, must-revalidate"  # 1 day
+	</FilesMatch>
+	<FilesMatch ".+\.(woff|woff2|ttf|otf|eof)">
+		# fonts
+		Header set Cache-Control "public, max-age=604800, must-revalidate"  # 7 days
+	</FilesMatch>
+	<FilesMatch ".+\.(css|js)$">
+		# .css, .js
+		Header set Cache-Control "public, max-age=3600, must-revalidate"  # 1 hour
+	</FilesMatch>
+#else
+	# DEBUG, no caching
+	Header always set Cache-Control "max-age=0, no-cache, must-revalidate"
+#endif
+
+	FileETag MTime Size
+</IfModule>
+
+
+################################################################################
+# Output filters
+
+<IfModule mod_filter.c>
+	<IfModule mod_deflate.c>
+		BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+		# Netscape 4.06-4.08 have some more problems
+		BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+		BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+
+		# web
+		AddOutputFilterByType DEFLATE \
+			text/plain \
+			text/html \
+			application/xhtml+xml \
+			text/css \
+			application/x-javascript \
+			application/javascript
+
+		# fonts
+		AddOutputFilterByType DEFLATE \
+			application/vnd.ms-fontobject \
+			application/x-font-ttf \
+			font/eot \
+			font/opentype
+
+		# JSON/XML
+		AddOutputFilterByType DEFLATE \
+			application/json \
+			application/xml \
+			text/xml \
+			image/svg+xml \
+			application/x-web-app-manifest+json \
+			application/manifest+json \
+			application/atom+xml \
+			application/rss+xml \
+			application/rdf+xml
+
+		# others
+		AddOutputFilterByType DEFLATE \
+			image/x-icon \
+			image/vnd.microsoft.icon \
+			image/bmp \
+			text/x-component
+	</IfModule>
+</IfModule>
