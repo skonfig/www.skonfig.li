@@ -21,10 +21,16 @@ FONTS_FORMATS = \
 	ttf \
 	svg
 
-IMAGES = 
+IMAGES = \
+	black.gif \
+	skonfig_logo.png
 
 PAGES = \
-	index.html
+	index.html \
+	install.html \
+	docs.html \
+	reference.html \
+	source.html
 
 FILES = \
 	.htaccess \
@@ -66,8 +72,9 @@ endif
 $(DESTDIR)/.htaccess: htaccess.in $(CONFIG_MK) | $(DESTDIR)/.
 	$(MK_YGPP)
 
-# custom dependencies
-$(DESTDIR)/css/style.css: $(foreach font,$(FONTS),$(DESTDIR)/fonts/$(font).css)
+$(DESTDIR)/img/black.gif: | $(DESTDIR)/img/.
+	$(CONVERT) -size 1x1 xc:none -background '#000000' -flatten -depth 8 $@
+
 
 ifneq (,$(call bool,$(BLOCK_AI_ROBOTS)))
 # NOTE: robots.txt needs ai.robots.txt, because it includes it

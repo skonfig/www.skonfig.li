@@ -1,4 +1,5 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_DOCS}
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="en">
@@ -25,17 +26,10 @@
 			<tr>
 				<td width="20"></td>
 				<td id="content" valign="top">
-					<h1>Hello</h1>
+					<h1>Documentation</h1>
 
 					<p>
-						skonfig is a system configuration and automation
-						framework designed to work with all systems, from your
-						toaster to the data centre. All you need is an SSH
-						connection and a POSIX/UNIX-like shell environment.
-					</p>
-					<p>
-						And best of all: you already know how to use it
-						(if you know shell scripts).
+						Coming soon&hellip;
 					</p>
 				</td>
 				<td id="nav" valign="top">

@@ -1,0 +1,43 @@
+#define thin_nbsp &#x202f;
+#dnl
+#define contactmail info@skonfig.li
+#dnl
+#ifndef PAGE_LANG
+#define PAGE_LANG en
+#endif
+#ifndef SITE_URL
+#define SITE_URL
+#endif
+#ifndef SITE_NAME
+#define SITE_NAME skonfig
+#endif
+#dnl
+#dnl Meta
+#dnl
+#ifndef META_TITLE
+#ifdef PAGE_TITLE
+#define META_TITLE %{PAGE_TITLE} &middot; %{SITE_NAME}
+#else
+#define META_TITLE %{SITE_NAME} - system configuration framework
+#endif
+#endif
+#switch PAGE_LANG
+#default
+#define META_DESCRIPTION skonfig is a system configuration and automation framework designed to work with all systems, from your toaster to the data centre. All you need is an SSH connection and a POSIX/UNIX-like shell environment. And best of all: you already know how to use it.
+#define META_KEYWORDS software,infrastructure,automation,configuration management,config management,infrastructure automation,Infrastructure as Code,IaC,CLI,Linux,UNIX,POSIX,free software,open source,GPL,GPLv3,GPL 3
+#endswitch
+#dnl
+#dnl Strings
+#dnl
+#dnl ...
+#dnl
+#dnl Page Titles
+#dnl
+#switch PAGE_LANG
+#default
+#define PAGE_HOME home
+#define PAGE_DOCS documentation
+#define PAGE_INSTALL installation
+#define PAGE_REFERENCE reference
+#define PAGE_SOURCE source code
+#endswitch

@@ -1,10 +1,10 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_INSTALL}
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="en">
 	<head>
 #include inc/meta.in
-		<basefont face="monospace" size="14" />
 	</head>
 	<body bgcolor="white">
 		<table border="0" cellpadding="0" cellspacing="0">
@@ -25,18 +25,38 @@
 			<tr>
 				<td width="20"></td>
 				<td id="content" valign="top">
-					<h1>Hello</h1>
+					<h1>Installation</h1>
 
-					<p>
-						skonfig is a system configuration and automation
-						framework designed to work with all systems, from your
-						toaster to the data centre. All you need is an SSH
-						connection and a POSIX/UNIX-like shell environment.
-					</p>
-					<p>
-						And best of all: you already know how to use it
-						(if you know shell scripts).
-					</p>
+					<code><pre>
+# clone skonfig itself
+git clone \
+    https://github.com/skonfig/skonfig \
+    ~/.skonfig/skonfig
+
+# get base types and explorers
+git clone \
+    https://github.com/skonfig/base \
+    ~/.skonfig/set/base
+
+# and extra goodies
+git clone \
+    https://github.com/skonfig/extra \
+    ~/.skonfig/set/extra
+
+# add skonfig to path
+ln -s ~/.skonfig/skonfig/bin/skonfig \
+    ~/.local/bin/skonfig
+
+# place for your own files, types and manifests
+mkdir -p \
+    ~/.skonfig/files \
+    ~/.skonfig/type \
+    ~/.skonfig/manifest
+
+# copy example initial manifest
+cp ~/.skonfig/skonfig/docs/examples/init-manifest \
+    ~/.skonfig/manifest/init
+					</pre></code>
 				</td>
 				<td id="nav" valign="top">
 #include inc/nav.in
