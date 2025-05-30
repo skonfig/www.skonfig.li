@@ -4,6 +4,46 @@
 <h1>Getting the source&hellip;</h1>
 
 <p>
-	&hellip;
+	The source code of skonfig is hosted on
+	<a href="https://github.com/" target="_blank">GitHub</a> and uses three
+	main repositories:
+	<ul>
+		<li>
+			<a href="https://github.com/skonfig/skonfig.git" target="_blank">skonfig</a>
+			- implementation of the skonfig executable,
+		</li>
+		<li>
+			<a href="https://github.com/skonfig/base.git" target="_blank">base</a>
+			- explorer and types for general use,
+		</li>
+		<li>
+			<a href="https://github.com/skonfig/extra.git" target="_blank">extra</a>
+			- special purpose types and incubator for new types.
+		</li>
+	</ul>
+</p>
+
+<h2>What are <i>base</i> and <i>extra</i>?</h2>
+
+<p>
+	<b>base</b> explorers and types are used to change the state of the
+	operating system or core components of it and are not for some specific
+	piece of software. Furthermore, the quality requirements for inclusion in
+	base are higher than for extra.
+</p>
+<p>
+	<b>extra</b> contains types for specific purposes like configuring software
+	or services which don't belong to the operating system and also serves as an
+	incubator for new types.
+</p>
+<p>
+	Even more types can be found in sets specialised in helping you configure a
+	specific piece of software. Some of these sets can be found on
+	<a href="https://github.com/skonfig/" target="_blank">https://github.com/skonfig/</a>.
+</p>
+<p>
+	And being a fork of <a href="https://cdi.st/" target="_blank">cdist</a>
+	originally, your cdist manifests and types will continue to work with
+	skonfig with no or minimal adjustments.
 </p>
 #include inc/footer.in
