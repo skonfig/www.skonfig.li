@@ -1,0 +1,57 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_REFERENCE}
+#include ../inc/header.in
+<h1>Environment variables</h1>
+
+<p>
+	The followng environment variables are set by the skonfig runtime for use in types, manifests etc.:
+
+	<dl>
+		<dt><tt>__cdist_dry_run</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__explorer</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__files</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__global</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__manifest</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__messages_in</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__messages_out</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__object</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__object_id</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__object_name</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__target_host</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__target_hostname</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__target_fqdn</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__type</tt></dt>
+		<dd>...</dd>
+
+		<dt><tt>__type_explorer</tt></dt>
+		<dd>...</dd>
+	</dl>
+</p>
+
+#include ../inc/footer.in
