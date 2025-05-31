@@ -8,7 +8,7 @@
 <tr>
 <td></td>
 <td colspan="3">
-	<br /><img src="img/black.gif" height="1" width="100" align="left" alt="__________" />
+	<br /><img src="%{PAGE_BASE}img/black.gif" height="1" width="100" align="left" alt="__________" />
 	<p id="footer">
 		Copyright &copy; 2025 - the skonfig hackers.
 		<a href="mailto:%{contactmail}">Contact</a>

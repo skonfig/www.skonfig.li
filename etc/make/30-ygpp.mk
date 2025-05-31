@@ -6,7 +6,7 @@ $(if $(1),PAGE_LANG=$(call shquot,$(1)),) \
 FILEBASE=$(call shquot,$(patsubst %.$(1),%,$(notdir $@))) \
 URL=$(call shquot,$(patsubst $(DESTDIR)%,%,$@)) \
 URL_CANONICAL=$(call shquot,$(patsubst %.$(1),%,$(patsubst $(DESTDIR)%,%,$@))) \
-PAGE_BASE=$(call shquot,$(patsubst /%,%,$(patsubst /%/,/../,$(patsubst $(DESTDIR)%,%,$(dir $@))))) \
+PAGE_BASE=$(call shquot,$(patsubst %/,../,$(patsubst $(DESTDIR)/%,%,$(dir $@)))) \
 $(YGPP) -- -D $<.d $< >$@
 endef
 
