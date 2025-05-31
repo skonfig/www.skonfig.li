@@ -13,13 +13,150 @@
 <h2 id="type-structure">Type file structure</h2>
 
 <p>
-...
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr height="20">
+			<td colspan="5"><b><tt>__your_type</tt></b></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="21"><img src="%{PAGE_BASE}img/black.gif" width="1" height="411" /></td>
+			<td align="left" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>explorer</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>manifest</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>gencode-local</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>gencode-remote</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>man.rst</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>files</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="1"><img src="%{PAGE_BASE}img/black.gif" width="1" height="11" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>...</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>parameter</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="10"><img src="%{PAGE_BASE}img/black.gif" width="1" height="171" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>default</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="2"><img src="%{PAGE_BASE}img/black.gif" width="1" height="31" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>state</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>...</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>boolean</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>optional</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>optional_multiple</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>required</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>required_multiple</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>deprecated</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="1"><img src="%{PAGE_BASE}img/black.gif" width="1" height="11" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>old-param</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>nonparallel</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>singleton</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="3"><tt>deprecated</tt></td>
+		</tr>
+	</table>
 </p>
 
 
 <h2 id="dotskonfig-structure">.skonfig file structure</h2>
 
 <p>
-...
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr height="20">
+			<td colspan="4"><b><tt>~/.skonfig</tt></b></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="9"><img src="%{PAGE_BASE}img/black.gif" width="1" height="151" /></td>
+			<td align="left" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>files</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>manifest</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="1"><img src="%{PAGE_BASE}img/black.gif" width="1" height="11" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>init</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>set</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="3"><img src="%{PAGE_BASE}img/black.gif" width="1" height="51" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>base</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>extra</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>...</tt></td>
+		</tr>
+		<tr height="20">
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="2"><tt>type</tt></td>
+		</tr>
+		<tr height="20">
+			<td width="16" align="right" valign="top" rowspan="1"><img src="%{PAGE_BASE}img/black.gif" width="1" height="11" /></td>
+			<td align="left" valign="top" width="16"><img src="%{PAGE_BASE}img/black.gif" width="10" height="1" /></td>
+			<td align="left" colspan="1"><tt>__your_type</tt></td>
+		</tr>
+	</table>
 </p>
 #include ../inc/footer.in
