@@ -4,53 +4,253 @@
 <h1>Environment variables</h1>
 
 <p>
-	The followng environment variables are set by the skonfig runtime for use in types, manifests etc.:
+	The following environment variables are set by the skonfig runtime for use
+	in types, manifests etc.:
+</p>
+
+<p>
+	<table border="1" cellspacing="0">
+		<tr>
+			<th rowspan="2">Variable</th>
+			<th colspan="6">Available in</th>
+		</tr>
+		<tr>
+			<th align="center">global explorers</th>
+			<th align="center">type explorers</th>
+			<th align="center">initial manifest</th>
+			<th align="center">type manifests</th>
+			<th align="center">gencode-*</th>
+			<th align="center">code-*</th>
+		</tr>
+		<tr>
+			<td><code>__cdist_dry_run</code></td>
+			<td align="center">&check;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__explorer</code></td>
+			<td align="center">&check;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&minus;<!-- type manifests --></td>
+			<td align="center">&minus;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__files</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__global</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__manifest</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&minus;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__messages_in</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__messages_out</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__object</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&minus;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__object_id</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&minus;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --></td>
+		</tr>
+		<tr>
+			<td><code>__object_name</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&minus;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --><sup>1</sup></td>
+		</tr>
+		<tr>
+			<td><code>__target_fqdn</code></td>
+			<td align="center">&check;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --><sup>1</sup></td>
+		</tr>
+		<tr>
+			<td><code>__target_host</code></td>
+			<td align="center">&check;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --><sup>1</sup></td>
+		</tr>
+		<tr>
+			<td><code>__target_hostname</code></td>
+			<td align="center">&check;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&check;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --><sup>1</sup></td>
+		</tr>
+		<tr>
+			<td><code>__type</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&minus;<!-- type explorers --></td>
+			<td align="center">&minus;<!-- initial manifest --></td>
+			<td align="center">&check;<!-- type manifests --></td>
+			<td align="center">&check;<!-- gencode-* --></td>
+			<td align="center">&check;<!-- code-* --><sup>2</sup></td>
+		</tr>
+		<tr>
+			<td><code>__type_explorer</code></td>
+			<td align="center">&minus;<!-- global explorers --></td>
+			<td align="center">&check;<!-- type explorers --></td>
+			<td align="center">&minus;<!-- initial manifest --></td>
+			<td align="center">&minus;<!-- type manifests --></td>
+			<td align="center">&minus;<!-- gencode-* --></td>
+			<td align="center">&minus;<!-- code-* --></td>
+		</tr>
+	</table>
+
+	<sup>1</sup> only <code>code-local</code><br />
+	<sup>2</sup> only <code>code-remote</code>
+</p>
+
+<p>
+	<h3>Definitions</h3>
 
 	<dl>
 		<dt><tt>__cdist_dry_run</tt></dt>
-		<dd>...</dd>
+		<dd>
+			Set to <code>1</code> if skonfig is run with the <code>-n</code> option.
+		</dd>
 
 		<dt><tt>__explorer</tt></dt>
-		<dd>...</dd>
+		<dd>
+			In explorers: fully qualified path to other global explorers on target.<br />
+			In initial manifest: path to global explorer output.
+		</dd>
 
 		<dt><tt>__files</tt></dt>
-		<dd>...</dd>
+		<dd>
+			Path to the (merged) files directory of .skonfig
+		</dd>
 
 		<dt><tt>__global</tt></dt>
-		<dd>...</dd>
+		<dd>Fully qualified path to the local working directory.</dd>
 
 		<dt><tt>__manifest</tt></dt>
-		<dd>...</dd>
+		<dd>Fully qualified path to the (merged) .skonfig <code>manifest</code> directory.</dd>
 
 		<dt><tt>__messages_in</tt></dt>
-		<dd>...</dd>
+		<dd>
+			File to read messages from other types from.
+
+			Messages are lines in the form of: <code>&lt;__object_name&gt;:&lt;message&gt;</code>
+		</dd>
 
 		<dt><tt>__messages_out</tt></dt>
-		<dd>...</dd>
+		<dd>File to write to to send messages to other types.</dd>
 
 		<dt><tt>__object</tt></dt>
-		<dd>...</dd>
+		<dd>
+			Fully qualified path to the current object.
+			For scripts running on the config host this is a local path to the
+			config host.
+			For scripts running on the target this is a local path to the
+			target.
+		</dd>
 
 		<dt><tt>__object_id</tt></dt>
-		<dd>...</dd>
+		<dd>
+			The name of the object given by the user when creating it.<br />
+			<br />
+			<b>NB:</b> leading and the trailing slashes ("/") are removed.
+			Double slashes ("//") always result in an error.
+		</dd>
+
 
 		<dt><tt>__object_name</tt></dt>
-		<dd>...</dd>
+		<dd>&lt;type name&gt;/&lt;__object_id&gt;</dd>
 
 		<dt><tt>__target_host</tt></dt>
-		<dd>...</dd>
+		<dd>
+			The name of the target as specified by the user in the command line
+			when executing skonfig.
+		</dd>
 
 		<dt><tt>__target_hostname</tt></dt>
-		<dd>...</dd>
+		<dd>
+			The host name of the target, derived from <code>__target_host</code>
+			using <code>socket.gethostbyaddr(socket.getaddrinfo(__target_host))</code>.
+		</dd>
 
 		<dt><tt>__target_fqdn</tt></dt>
-		<dd>...</dd>
+		<dd>
+			The <abbr title="Fully Qualified Domain Name">FQDN</abbr> of the
+			target, derived from <code>__target_host</code> using
+			<code>socket.getfqdn(__target_host)</code>.
+		</dd>
 
 		<dt><tt>__type</tt></dt>
-		<dd>...</dd>
+		<dd>
+			Fully qualified path to the current type's source code.
+		</dd>
 
 		<dt><tt>__type_explorer</tt></dt>
-		<dd>...</dd>
+		<dd>
+			Fully qualified path to the directory the current type's other
+			explorers are stored in.
+			This variable is used when one type explorer needs to execute
+			another type explorer.
+		</dd>
 	</dl>
 </p>
 
