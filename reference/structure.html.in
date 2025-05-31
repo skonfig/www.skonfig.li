@@ -1,0 +1,25 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_REFERENCE}
+#include ../inc/header.in
+<h1>Structure</h1>
+
+<p>
+	Jump to:
+	<a href="#type-structure">type file structure</a>,
+	<a href="#dotskonfig-structure"><tt>.skonfig</tt> file structure</a>.
+</p>
+
+
+<h2 id="type-structure">Type file structure</h2>
+
+<p>
+...
+</p>
+
+
+<h2 id="dotskonfig-structure">.skonfig file structure</h2>
+
+<p>
+...
+</p>
+#include ../inc/footer.in

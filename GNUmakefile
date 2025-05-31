@@ -30,6 +30,9 @@ PAGES = \
 	install.html \
 	docs.html \
 	reference.html \
+	reference/base-explorers.html \
+	reference/environment.html \
+	reference/structure.html \
 	source.html
 
 FILES = \

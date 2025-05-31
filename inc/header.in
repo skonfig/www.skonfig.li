@@ -12,15 +12,15 @@
 	<h1>%{META_TITLE}</h1>
 </td>
 <td rowspan="3" height="100%" width="25">
-	<img src="img/black.gif" width="1" height="100%" alt="" border="0" align="right" valign="top" />
+	<img src="%{PAGE_BASE}img/black.gif" width="1" height="100%" alt="" border="0" align="right" valign="top" />
 </td>
 <td id="logo" cellpadding="0" width="200">
-	<img src="img/skonfig_logo.png" height="200" width="200" alt="" valign="bottom" />
+	<img src="%{PAGE_BASE}img/skonfig_logo.png" height="200" width="200" alt="" valign="bottom" />
 </td>
 </tr>
 <tr>
 <td colspan="4">
-	<img src="img/black.gif" width="100%" height="1" align="top" border="0" alt="" />
+	<img src="%{PAGE_BASE}img/black.gif" width="100%" height="1" align="top" border="0" alt="" />
 </td>
 </tr>
 <tr>

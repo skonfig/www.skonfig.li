@@ -1,0 +1,111 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_REFERENCE}
+#include ../inc/header.in
+<h1>base explorers</h1>
+
+<p>
+	<b>NOTE:</b> The global explorers are part of the
+	<a href="https://github.com/skonfig/base.git">base</a> set
+	and are only available if you have it installed.<br />
+	Also, depending on the version you have installed there
+	may be some slight differences to what is documented
+	here.  This is just a quick reference so you don't have
+	to check the sources every time <tt>:-)</tt>.
+</p>
+
+<dl>
+	<dt><tt>cpu_cores</tt></dt>
+	<dd>
+		The number of CPU cores available on the
+		target.<br />
+		Note that this number includes virtual SMT threads.
+	</dd>
+	<dt><tt>cpu_sockets</tt></dt>
+	<dd>The number of CPU sockets in use on the target.</dd>
+	<dt><tt>disks</tt></dt>
+	<dd>
+		Disks available on the target (excl. RAM disks,
+		floppies, CDROMs).<br />
+		The content is a space separated list of device
+		names (e.g. <tt>sda</tt> or <tt>wd0</tt>).
+	</dd>
+	<dt><tt>hostname</tt></dt>
+	<dd>The current (running) hostname of the target.</dd>
+	<dt><tt>init</tt></dt>
+	<dd>
+		The name of the init system (PID 1) on the target.
+#dnl TODO insert examples
+	</dd>
+	<dt><tt>interfaces</tt></dt>
+	<dd>
+		Network interfaces available on the target.
+		One interface name per line, sorted lexicographically.
+	</dd>
+	<dt><tt>kernel_name</tt></dt>
+	<dd>Name of the kernel running on the target (as reported by <b>uname</b>(1))</dd>
+	<dt><tt>lsb_codename</tt></dt>
+	<dd><abbr title="Linux Standard Base">LSB</abbr> codename</dd>
+	<dt><tt>lsb_description</tt></dt>
+	<dd><abbr title="Linux Standard Base">LSB</abbr> description</dd>
+	<dt><tt>lsb_id</tt></dt>
+	<dd><abbr title="Linux Standard Base">LSB</abbr> ID</dd>
+	<dt><tt>lsb_release</tt></dt>
+	<dd><abbr title="Linux Standard Base">LSB</abbr> release</dd>
+	<dt><tt>machine</tt></dt>
+	<dd>The processor architecture of the target.</dd>
+	<dt><tt>machine_type</tt></dt>
+	<dd>
+		The type of machine the target is (bare-metal, virtual machine,
+		container, chroot, etc.).
+
+		<p>
+			One line for each layer the explorer can detect in the format:<br />
+			<code>TYPE[ PREPOSITION VENDOR]</code>, e.g.:
+			<ul>
+				<li><code>container</code></li>
+				<li><code>container on lxc</code></li>
+				<li><code>virtual by kvm-spapr</code></li>
+			</ul>
+		</p>
+
+		<p>
+			The third word of each line (except the first) can be composed of
+			different parts concatenated with a <tt>-</tt> (minus) character,
+			with each component being a specification of the previous, e.g.:
+			<ul>
+				<li><code>lxc-libvirt</code> - LXC container, managed by libvirt</li>
+				<li><code>lpar-s390</code> / <code>lpar-power</code> - <abbr title="Logical Partition">LPAR</abbr> running on IBM S/390 (Z architectrure) or POWER, respectively)</li>
+				<li><code>xen-hvm</code> / <code>xen-pv</code> - Xen HVM vs para-virtualization</li>
+			</ul>
+		</p>
+		<p>
+			If this explorer cannot collect enough information about the target,
+			it will fall back to <code>physical</code>
+		</p>
+	</dd>
+	<dt><tt>memory</tt></dt>
+	<dd>
+		The amount of memory physically installed on the target in kiB
+		(kibibytes, base 2), or if that cannot be determined the amount
+		available to the operating system kernel.
+	</dd>
+	<dt><tt>os</tt></dt>
+	<dd>
+		The operating system running on the target (as a skonfig-specific
+		identifier, always lower-case).
+	</dd>
+	<dt><tt>os_release</tt></dt>
+	<dd>
+		The contents of the <b>os-release</b>(5) file.<br />
+		cf. <b>os-release</b>(5) and <a href="http://0pointer.de/blog/projects/os-release">http://0pointer.de/blog/projects/os-release</a>
+	</dd>
+	<dt><tt>os_version</tt></dt>
+	<dd>
+		The version of the operating system installed on the target.<br />
+		<b>NB:</b> the values differ among operating systems and are not
+		normalised in any way.
+	</dd>
+	<dt><tt>runlevel</tt></dt>
+	<dd>The runlevel the target is currently running in.</dd>
+</dl>
+#include ../inc/footer.in
