@@ -5,7 +5,7 @@
 #include meta.in
 </head>
 <body bgcolor="white">
-<font face="monospace" size="4">
+<font face="monospace" size="3">
 <table border="0" cellpadding="0" cellspacing="0" width="800">
 <tr id="header">
 <td id="page-title" align="right" valign="bottom" colspan="2">
