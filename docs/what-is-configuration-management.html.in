@@ -1,0 +1,7 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_DOCS}
+#include ../inc/header.in
+<h1>What is Configuration Management?</h1>
+
+<p>Coming soon&hellip;</p>
+#include ../inc/footer.in

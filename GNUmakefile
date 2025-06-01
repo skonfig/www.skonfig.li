@@ -29,6 +29,9 @@ PAGES = \
 	index.html \
 	install.html \
 	docs.html \
+	docs/what-is-configuration-management.html \
+	docs/getting-started.html \
+	docs/my-first-type.html \
 	reference.html \
 	reference/base-explorers.html \
 	reference/environment.html \
