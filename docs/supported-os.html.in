@@ -1,0 +1,133 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_DOCS}
+#include ../inc/header.in
+<h1>Supported Operating Systems</h1>
+
+The skonfig runtime itself can be expected to work with all targets fulfilling
+these requirements:
+<ul>
+	<li>
+		runs a POSIX-compatible operating system
+		(skonfig works with pretty much anything resembling UNIX which was
+		released in this millennium),</li>
+	<li>
+		runs an SSH server which allows root login (or you provide your
+		own <code>remote_exec</code> command).
+	</li>
+</ul>
+
+When it comes to type support things become a bit more differentiated.
+Support in <i>base</i> can be summarised as follows:
+
+<p><table border="0">
+	<tr>
+		<th align="left">Operating System</th>
+		<th align="right">Tier</th>
+	</tr>
+	<tr><td colspan="2"><hr /></td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+
+	<tr><td align="left" colspan="2"><b>GNU/Linux</b></td></tr>
+
+	<tr><td align="left" colspan="2"><u>Debian (and derivatives)</u></td></tr>
+
+	<tr><td>Debian</td><td align="right">1</td></tr>
+	<tr><td>Devuan</td><td align="right">1</td></tr>
+	<tr><td>Pop!_OS</td><td align="right">3</td></tr>
+	<tr><td>Ubuntu</td><td align="right">2</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><u>Red Hat derivatives</u></td></tr>
+
+	<tr><td>AlmaLinux</td><td align="right">2</td></tr>
+	<tr><td>Amazon Linux</td><td align="right">3</td></tr>
+	<tr><td>CentOS</td><td align="right">2</td></tr>
+	<tr><td>EuroLinux</td><td align="right">2</td></tr>
+	<tr><td>Fedora</td><td align="right">2</td></tr>
+	<tr><td>Oracle Linux</td><td align="right">2</td></tr>
+	<tr><td>Red Hat Enterprise Linux (RHEL)</td><td align="right">2</td></tr>
+	<tr><td>Red Hat Linux (the original)</td><td align="right">3</td></tr>
+	<tr><td>Rocky Linux</td><td align="right">2</td></tr>
+	<tr><td>Scientific Linux</td><td align="right">2</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><u>SuSE</u></td></tr>
+	<tr><td>openSUSE</td><td align="right">2</td></tr>
+	<tr><td>SuSE Linux Enterprise Server (SLES)</td><td align="right">2</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><u>Others</u></td></tr>
+
+	<tr><td>Adélie Linux</td><td align="right"><small>WIP</small> 2</td></tr>
+	<tr><td>Alpine Linux</td><td align="right">1</td></tr>
+	<tr><td>ArchLinux</td><td align="right">3</td></tr>
+	<tr><td>Chimera</td><td align="right">3</td></tr>
+	<tr><td>CRUX</td><td align="right">3</td></tr>
+	<tr><td>Gentoo Linux</td><td align="right">2</td></tr>
+	<tr><td>OpenWrt</td><td align="right">1</td></tr>
+	<tr><td>Slackware</td><td align="right">3</td></tr>
+	<tr><td>Synology DSM</td><td align="right">3</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><b>UNIX</b></td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><u>BSD</u></td></tr>
+
+	<tr><td>FreeBSD</td><td align="right">1</td></tr>
+	<tr><td>NetBSD</td><td align="right">3</td></tr>
+	<tr><td>OpenBSD</td><td align="right">1</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><u>Commercial UNIX</u></td></tr>
+
+	<tr><td>AIX</td><td align="right"><small>WIP</small> 2</td></tr>
+	<tr><td>Illumos (OpenSolaris)</td><td align="right">3</td></tr>
+	<tr><td>Mac OS X</td><td align="right">2</td></tr>
+	<tr><td>Solaris (Sun/Oracle)</td><td align="right">3</td></tr>
+
+	<tr><td></td><td align="right"></td></tr>
+	<tr><td align="left" colspan="2"><b>Weird/hobbyist systems</b></td></tr>
+
+	<tr><td>BeOS</td><td align="right">3</td></tr>
+	<tr><td>Haiku</td><td align="right">3</td></tr>
+	<tr><td>Sortix</td><td align="right"><small>WIP</small> 3</td></tr>
+</table></p>
+
+<br /><img src="%{PAGE_BASE}img/black.gif" height="1" width="100" align="left" alt="__________" /><br />
+<p>
+	<h3>Support tiers:</h3>
+
+	<dl>
+		<dt>1</dt>
+		<dd>
+			<i>Fully supported</i><br />
+			Actively used by maintainers. You can expect these systems to work
+			very well with skonfig and all features should work as expected.
+		</dd>
+
+		<dt>2</dt>
+		<dd>
+			<i>Mostly supported</i><br />
+			Most (if not all) features should be implemented and skonfig can be
+			expected to generally work well with these systems.
+			However, these systems are not actively used by maintainers.
+			Bugs may need more time to get fixed and some features may be
+			unimplemented.
+
+			<p>Patches/pull requests are welcome.</p>
+		</dd>
+
+		<dt>3</dt>
+		<dd>
+			<i>Community support.</i><br />
+			These are fun projects. There is no regular testing of these systems
+			and features may be unimplemented or not working.
+			Maintenance depends on community members sending patches.
+
+			<p>Patches/pull requests are welcome.</p>
+		</dd>
+	</dl>
+</p>
+#include ../inc/footer.in

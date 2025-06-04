@@ -18,17 +18,6 @@
 		<li>can connect to the targets via SSH</li>
 	</ul>
 </p>
-<p>
-	System requirements (targets):
-	<ul>
-		<li>
-			a POSIX-compatible operating system
-			(skonfig supports pretty much anything:
-			various Linux distributions, BSDs, Mac OS X,
-			AIX, Solaris/Illumos any many more),</li>
-		<li>runs an SSH server</li>
-	</ul>
-</p>
 
 <h3>Installation</h3>
 
