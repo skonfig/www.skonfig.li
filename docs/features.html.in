@@ -1,0 +1,54 @@
+#dnl -*- mode: web; indent-tabs-mode: t -*-
+#define PAGE_TITLE %{PAGE_DOCS}
+#include ../inc/header.in
+<h1>Features</h1>
+
+<p>
+	There are various configuration management and automation systems already
+	available on the market.
+	skonfig is similar to these (somewhere in between Puppet and Ansible if you
+	know those), but still brings some interesting features to the table.
+</p>
+<p>
+	Development of skonfig is focused around giving you the tools you need to
+	build whatever you want. It does not tell you what to do or how to do it.
+	With its broad base of supported systems, it'll get you going in no time.
+</p>
+
+<dl>
+	<dt>Agent-less</dt>
+	<dd>skonfig requires no complex server setups </dd>
+
+	<dt>No wasteful periodic runs</dt>
+	<dd>
+		Being agent-less skonfig only runs when you tell it to. It does not do
+		any automatic periodic runs burning your CPU cycles.<br />
+		If you want automatic runs, you can still set up a cron job to run
+		skonfig automatically, of course&hellip;
+	</dd>
+
+	<dt>It's just a shell</dt>
+	<dd>
+		No need to have a degree as a Senior YAML Engineer or learn new
+		languages.
+		To use skonfig you don't have to learn anything new. Your knowledge in
+		writing shell scripts will be enough to use all of skonfig.
+	</dd>
+
+	<dt>Rapid development</dt>
+	<dd>
+		Most tasks can be solved quickly using already existing types.
+		If something cannot be solved using an existing type, creating new types
+		can be as simple as writing a simple shell script.
+	</dd>
+
+	<dt>Oh, you don't like the shell?</dt>
+	<dd>
+		I didn't know.
+		skonfig is polyglot. You can use every programming language you like as
+		long as it can fork processes, handle envionment variables and
+		read/write files.
+	</dd>
+</dl>
+
+#include ../inc/footer.in

@@ -29,6 +29,7 @@ PAGES = \
 	index.html \
 	install.html \
 	docs.html \
+	docs/features.html \
 	docs/what-is-configuration-management.html \
 	docs/getting-started.html \
 	docs/my-first-type.html \

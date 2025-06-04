@@ -20,6 +20,7 @@
 		<a href="%{PAGE_BASE}docs.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_DOCS}</a>
 		<ul>
 			<li><a href="%{PAGE_BASE}docs/supported-os.html.%{PAGE_LANG}">supported operating systems</a></li>
+			<li><a href="%{PAGE_BASE}docs/features.html.%{PAGE_LANG}">features</a></li>
 
 			<li><a href="%{PAGE_BASE}docs/what-is-configuration-management.html.%{PAGE_LANG}">what is configuration management?</a></li>
 			<li><a href="%{PAGE_BASE}docs/getting-started.html.%{PAGE_LANG}">getting started</a></li>
