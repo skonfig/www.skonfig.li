@@ -91,7 +91,7 @@ endif
 endif
 
 
--include $(wildcard $(HOMEPAGE_BASE)/make/*.mk)
+-include $(sort $(wildcard $(HOMEPAGE_BASE)/make/*.mk))
 
 
 htdocs: $(HTDOCS)

@@ -1,6 +1,6 @@
 # rules for $(DESTDIR) sub directories
 
-ALL_DIRS = $(patsubst %,$(DESTDIR)/%/.,$(DIRS))
+ALL_DIRS = $(DESTDIR)/. $(patsubst %,$(DESTDIR)/%/.,$(DIRS))
 
 $(DESTDIR)/.:
 	mkdir $(DESTDIR)
