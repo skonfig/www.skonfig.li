@@ -16,8 +16,8 @@
 #endswitch
 	</li>
 	<li>
-#if case ${URL_CANONICAL} in (/docs.html|/docs/*) ;; (*) ! : ;; esac
-		<a href="%{PAGE_BASE}docs.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_DOCS}</a>
+#if case ${URL_CANONICAL} in (/docs/*) ;; (*) ! : ;; esac
+		<a href="%{PAGE_BASE}docs/index.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_DOCS}</a>
 		<ul>
 			<li><a href="%{PAGE_BASE}docs/supported-os.html.%{PAGE_LANG}">supported operating systems</a></li>
 			<li><a href="%{PAGE_BASE}docs/features.html.%{PAGE_LANG}">features</a></li>
@@ -27,19 +27,19 @@
 			<li><a href="%{PAGE_BASE}docs/my-first-type.html.%{PAGE_LANG}">my first type</a></li>
 		</ul>
 #else
-		<a href="%{PAGE_BASE}docs.html.%{PAGE_LANG}" class="nav-link">%{PAGE_DOCS}</a>
+		<a href="%{PAGE_BASE}docs/index.html.%{PAGE_LANG}" class="nav-link">%{PAGE_DOCS}</a>
 #endif
 	</li>
 	<li>
-#if case ${URL_CANONICAL} in (/reference.html|/reference/*) ;; (*) ! : ;; esac
-		<a href="%{PAGE_BASE}reference.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_REFERENCE}</a>
+#if case ${URL_CANONICAL} in (/reference/*) ;; (*) ! : ;; esac
+		<a href="%{PAGE_BASE}reference/index.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_REFERENCE}</a>
 		<ul>
 			<li><a href="%{PAGE_BASE}reference/structure.html.%{PAGE_LANG}">structure</a></li>
 			<li><a href="%{PAGE_BASE}reference/environment.html.%{PAGE_LANG}">environment</a></li>
 			<li><a href="%{PAGE_BASE}reference/base-explorers.html.%{PAGE_LANG}">base explorers</a></li>
 		</ul>
 #else
-		<a href="%{PAGE_BASE}reference.html.%{PAGE_LANG}" class="nav-link">%{PAGE_REFERENCE}</a>
+		<a href="%{PAGE_BASE}reference/index.html.%{PAGE_LANG}" class="nav-link">%{PAGE_REFERENCE}</a>
 #endif
 	</li>
 	<li>
