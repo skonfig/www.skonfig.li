@@ -21,18 +21,13 @@
 
 <h3>Installation</h3>
 
-skonfig uses the <code>~/.skonfig</code> directory to store the configuration:
-
-<code><pre>
-mkdir -p \
-    ~/.skonfig/files \
-    ~/.skonfig/manifest \
-    ~/.skonfig/set \
-    ~/.skonfig/type \
-</pre></code>
+skonfig uses the <code>~/.skonfig</code> directory to store the
+configuration to be applied to your targets.
 
 The skonfig executable can also be installed in there for simplicity:
 <code><pre>
+mkdir -p ~/.skonfig
+
 git clone \
     https://github.com/skonfig/skonfig.git \
     ~/.skonfig/skonfig
@@ -42,14 +37,6 @@ ln -s ../../.skonfig/skonfig/bin/skonfig \
     ~/.local/bin/skonfig
 </pre></code>
 
-Then, you probably want to install the base and extra sets as a starting point by cloning them to the <code>~/.skonfig/set</code> directory:
-<code><pre>
-git clone \
-    https://github.com/skonfig/base \
-    ~/.skonfig/set/base
-
-git clone \
-    https://github.com/skonfig/extra \
-    ~/.skonfig/set/extra
-</pre></code>
+After having installed the skonfig executable,
+cf. <a href="%{PAGE_BASE}docs/getting-started.html.%{PAGE_LANG}">getting started</a>.
 #include inc/footer.in

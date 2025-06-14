@@ -3,5 +3,191 @@
 #include ../inc/header.in
 <h1>Getting Started with skonfig</h1>
 
-<p>Coming soon&hellip;</p>
+<p>
+	Jump to:
+	<ol>
+		<li><a href="#preparing-dotskonfig">preparing <code>.skonfig</code></a></li>
+		<li><a href="#preparing-target">preparing the target</a></li>
+		<li><a href="#first-manifest">your first manifest</a></li>
+	</ol>
+</p>
+
+<h2 id="preparing-dotskonfig">Preparing <code>.skonfig</code></h2>
+<p>
+	skonfig uses the <code>~/.skonfig</code> directory to store the
+	configuration to be applied to your targets.
+
+	<code><pre>mkdir -p \
+	~/.skonfig/files \
+	~/.skonfig/manifest \
+	~/.skonfig/set \
+	~/.skonfig/type</pre></code>
+
+	Then, you probably want to install the base and extra sets as a
+	starting point by cloning them to the <code>~/.skonfig/set</code> directory:
+
+	<code><pre>git clone https://github.com/skonfig/base.git ~/.skonfig/set/base
+git clone https://github.com/skonfig/extra.git ~/.skonfig/set/extra</pre></code>
+
+</p>
+
+<h2 id="preparing-dotskonfig">Preparing the target</h2>
+<p>
+	System requirements (targets):
+	<ul>
+		<li>
+			a POSIX-compatible operating system (e.g. Linux, BSD, etc. skonfig
+			works with pretty much anything),
+		</li>
+		<li>
+			runs an SSH server which allows root login<sup>1</sup> and
+			preferably allows the config host non-interactive login<sup>2</sup>
+		</li>
+	</ul>
+
+	<sup>1</sup>root login is required for the default configuration.
+	Advanced users can provide an alternative <code>remote_exec</code> command
+	doing <b>sudo</b>(1), <b>doas</b>(1) or whatever they use to become root.
+	Also, transport protocols other than SSH are possible, as long as the
+	command resembles <b>ssh</b>(1).
+
+	<sup>2</sup>during a configuration run, skonfig will open multiple SSH
+	connections to the target. Having to interactively log in for each one is
+	unpractical.
+	Though, skonfig tries to use SSH connection multipexing whenever possible,
+	so in most cases you should have to authenticate only once.
+</p>
+<p>
+	You can check if the connection works by doing an "empty configuration run"
+	which does not apply any configuration to the target.
+	<br />
+	It only connects to the target to gather some information about it (running
+	only the so called global explorers).
+</p>
+<p>
+	You can start an empty configuration run by issuing the following command:<br />
+	<code>skonfig -i /dev/null yourtarget.example.com</code>
+</p>
+<p>
+	The results are cached by skonfig and you can retrieve the values like this:<br />
+	<code>skonfig -d yourtarget.example.com | grep ^explorer/</code>
+	<br /><br />
+	The output should look something like this:
+	<code><pre>explorer/cpu_cores: 4
+explorer/cpu_sockets: 1
+explorer/disks: vda
+explorer/hostname: yourtarget
+explorer/init: sysvinit
+explorer/interfaces: eth0
+explorer/interfaces: lo
+explorer/kernel_name: Linux
+explorer/lsb_codename: daedalus
+explorer/lsb_description: Devuan GNU/Linux 5 (daedalus)
+explorer/lsb_id: Devuan
+explorer/lsb_release: 5
+explorer/machine: ppc64le
+explorer/machine_type: virtual machine
+explorer/machine_type: virtual by kvm-spapr
+explorer/memory: 2097152
+explorer/os: devuan
+explorer/os_version: 4
+explorer/runlevel: 2
+	</pre></code>
+</p>
+
+<h2 id="first-manifest">The first manifest</h2>
+<p>
+	When you run <b>skonfig</b>(1) it will execute the initial manifest
+	(<code>~/.skonfig/manifest/init</code> unless you override it using the
+	<code>-i</code> option).
+</p>
+<p>
+	The initial manifest is the same for all targets to be configured.
+	Environment variables can be used to differentiate the various targets and
+	configuration to be applied to them.
+</p>
+<p>
+	The initial manifest is a shell script which is executed on the config host,
+	not on the target.
+	It uses types to define the configuration for the target.
+</p>
+<p>
+	Types are a <emph>declarative</emph> abstraction around the basic components
+	of an operating system.
+	There is no need to check the current state of the target and determine the
+	changes to be applied manually. This is all done by the types themselves.
+	As a user you only define the desired target state and skonfig will do what
+	is necessary to bring the target into your desired state.
+</p>
+<p>
+	As an example you do not:
+	<code><pre>
+test -d /tmp/somedir || mkdir /tmp/somedir
+chown user:group /tmp/somedir
+chmod 0755 /tmp/somedir
+</pre></code>
+</p>
+<p>
+	You do:
+
+	<code><pre>
+__directory /tmp/somedir \
+	--owner user --group group --mode 0755
+	</pre></code>
+
+	skonfig then creates the directory or modifies its ownership and permissions
+	as required.
+</p>
+<p>
+	Similarly you don't <code>apt-get install curl</code>,
+	you simply <code>__package curl</code>.<br />
+	The <code>__package</code> type includes the logic to install packages for
+	most operating systems and will do the appropriate steps for your
+	operating system, not just Debian :-)
+</p>
+<p>
+	In most cases you don't just need one configuration applied to all of your
+	systems, but skonfig always runs <code>~/.skonfig/manifest/init</code>&hellip;
+</p>
+<p>
+	To separate configuration applied to different hosts, you can implement
+	logic in the initial manifest. The most straight forward way to do so is by
+	the hostname.
+</p>
+<p>
+	skonfig exports three environment variables to do so:
+
+	<dl>
+		<dt><code>__target_host</code></dt>
+		<dd>
+			literally the host string you passed to the <b>skonfig</b>(1)
+			command.
+		</dd>
+		<dt><code>__target_hostname</code></dt>
+		<dd>
+			the (first) hostname returned by <b>gethostbyaddr</b>(3) for the
+			IP address <code>__target_host</code> resolves to.
+			This can be a <abbr title="Fully Qualified Domain Name">FQDN</abbr>,
+			but does not have to.</dd>
+		<dt><code>__target_fqdn</code></dt>
+		<dd>
+			same as <code>__target_hostname</code> but the first fully-qualified
+			alias is used.
+			If none of the aliases if fully qualified, it is just the hostname,
+			like <code>__target_hostname</code>.
+		</dd>
+	</dl>
+</p>
+
+<p>
+	An example using these environment variables:
+
+	<code><pre>#!/bin/sh
+
+if test -r "${__manifest:?}/host/${__target_host:?}"
+then
+	. "${__manifest:?}/host/${__target_host:?}"
+fi</pre></code>
+
+</p>
 #include ../inc/footer.in
