@@ -15,4 +15,6 @@
 <p>
 	Are you ready? &raquo; <a href="install.html.%{PAGE_LANG}">installation</a>
 </p>
+
+<img src="%{PAGE_BASE}img/riiengineered-400.png" alt="riiengineered" galleryimg="no" />
 #include inc/footer.in

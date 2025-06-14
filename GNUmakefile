@@ -23,7 +23,8 @@ FONTS_FORMATS = \
 
 IMAGES = \
 	black.gif \
-	skonfig_logo.png
+	skonfig_logo.png \
+	riiengineered-400.png
 
 PAGES = \
 	index.html \
