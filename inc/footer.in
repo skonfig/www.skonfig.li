@@ -1,6 +1,6 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
 </td>
-<td id="nav" valign="top">
+<td valign="top">
 #include nav.in
 </td>
 </tr>
