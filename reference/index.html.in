@@ -1,14 +1,16 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
 #define PAGE_TITLE %{PAGE_REFERENCE}
 #include ../inc/header.in
-<h1>Quick reference</h1>
+<h1>Cheat sheets</h1>
 
 <p>
 	Jump to:
-	<a href="%{PAGE_BASE}reference/environment.html.%{PAGE_LANG}">environment variables</a>,
-	<a href="%{PAGE_BASE}reference/structure.html.%{PAGE_LANG}#type-structure">type file structure</a>,
-	<a href="%{PAGE_BASE}reference/structure.html.%{PAGE_LANG}##dotskonfig-structure"><tt>.skonfig</tt> file structure</a>,
-	<a href="%{PAGE_BASE}reference/base-explorers.html.%{PAGE_LANG}">base explorers</a>.
+	<ul>
+		<li><a href="%{PAGE_BASE}reference/environment.html.%{PAGE_LANG}">environment variables</a></li>
+		<li><a href="%{PAGE_BASE}reference/structure.html.%{PAGE_LANG}#type-structure">type file structure</a></li>
+		<li><a href="%{PAGE_BASE}reference/structure.html.%{PAGE_LANG}##dotskonfig-structure"><tt>.skonfig</tt> file structure</a></li>
+		<li><a href="%{PAGE_BASE}reference/base-explorers.html.%{PAGE_LANG}">base explorers</a></li>
+	</ul>
 </p>
 
 #include ../inc/footer.in
