@@ -4,6 +4,18 @@
 <h1>Documentation</h1>
 
 <p>
-	Coming soon&hellip;
+	<b>Are you new to skonfig?</b> Check out our
+	<a href="getting-started.html.%{PAGE_LANG}">getting started</a> guide
+	which will guide you through all the steps necessary to get a basic skonfig
+	set-up running in no time.
+</p>
+<p>
+	Ready for the next step?
+	Implement <a href="my-first-type.html.%{PAGE_LANG}">your first type</a>.
+</p>
+<p>
+	Could use a <b>cheat sheet</b>?
+	The <a href="%{PAGE_BASE}reference/index.html.%{PAGE_LANG}">reference</a>
+	section has got you covered.
 </p>
 #include ../inc/footer.in
