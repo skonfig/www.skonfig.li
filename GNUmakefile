@@ -28,9 +28,9 @@ IMAGES = \
 
 PAGES = \
 	index.html \
+	features.html \
 	install.html \
 	docs/index.html \
-	docs/features.html \
 	docs/what-is-configuration-management.html \
 	docs/getting-started.html \
 	docs/my-first-type.html \

@@ -37,6 +37,7 @@
 #default
 #define PAGE_HOME home
 #define PAGE_DOCS documentation
+#define PAGE_FEATURES features
 #define PAGE_INSTALL installation
 #define PAGE_REFERENCE reference
 #define PAGE_SOURCE source code

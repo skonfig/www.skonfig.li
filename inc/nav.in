@@ -9,6 +9,14 @@
 	</li>
 	<li>
 #switch URL_CANONICAL
+#case /features.html
+		<a href="%{PAGE_BASE}features.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_FEATURES}</a>
+#default
+		<a href="%{PAGE_BASE}features.html.%{PAGE_LANG}" class="nav-link">%{PAGE_FEATURES}</a>
+#endswitch
+	</li>
+	<li>
+#switch URL_CANONICAL
 #case /install.html
 		<a href="%{PAGE_BASE}install.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_INSTALL}</a>
 #default
@@ -20,8 +28,6 @@
 		<a href="%{PAGE_BASE}docs/index.html.%{PAGE_LANG}" class="active nav-link">%{PAGE_DOCS}</a>
 		<ul>
 			<li><a href="%{PAGE_BASE}docs/supported-os.html.%{PAGE_LANG}">supported operating systems</a></li>
-			<li><a href="%{PAGE_BASE}docs/features.html.%{PAGE_LANG}">features</a></li>
-
 			<li><a href="%{PAGE_BASE}docs/what-is-configuration-management.html.%{PAGE_LANG}">what is configuration management?</a></li>
 			<li><a href="%{PAGE_BASE}docs/getting-started.html.%{PAGE_LANG}">getting started</a></li>
 			<li><a href="%{PAGE_BASE}docs/my-first-type.html.%{PAGE_LANG}">my first type</a></li>
