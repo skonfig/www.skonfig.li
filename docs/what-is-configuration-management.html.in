@@ -3,5 +3,66 @@
 #include ../inc/header.in
 <h1>What is Configuration Management?</h1>
 
-<p>Coming soon&hellip;</p>
+<p>
+	Configuration management is a systematic aproach to managing,
+	controlling and automating changes made to a (server) system over its
+	entire lifecycle.
+	It involves identifying, documenting, and verifying the various components
+	that make up a system's configuration, as well as controlling how those
+	components are modified and updated.
+</p>
+
+<p>
+	The goals of configuration management vary based on your needs.
+	Oftentimes motivations to introduce configuration management /
+	Infrastructure as Code solutions include:
+	<dl>
+		<dt>Consistency</dt>
+		<dd>
+			Ensuring that all the components of a system work together
+			seamlessly by controlling how changes are made.
+			This reduces discrepancies between systems in an organisation which
+			can lead to incompatibilities, unexpected behavior, or
+			system failures.
+		</dd>
+
+		<dt>Traceability</dt>
+		<dd>
+			Maintaining a complete record of all the components
+			that make up a system's configuration and how they relate to each
+			other. This allows you to understand the current state of the
+			system and how it has evolved over time.
+			It can also allow you to revert to a previous configuration if
+			necessary.
+		</dd>
+
+		<dt>Auditability</dt>
+		<dd>
+			Providing a clear history of all the changes made to a system,
+			who made them, and when.
+			This allows you to review the evolution of the system and
+			troubleshoot issues.
+		</dd>
+
+		<dt>Reproducibility</dt>
+		<dd>
+			Enabling the ability to reliably recreate a specific configuration
+			of a system, which is essential for tasks like testing, deployment,
+			and disaster recovery.
+		</dd>
+
+		<dt>Automation</dt>
+		<dd>
+			Streamlining the configuration process through automation tools
+			which can help reduce manual errors, save time, and improve
+			efficiency.
+		</dd>
+
+		<dt>Compliance</dt>
+		<dd>
+			Ensuring that configurations meet regulatory and organizational
+			standards, which is crucial for security and operational integrity.
+		</dd>
+	</dl>
+</p>
 #include ../inc/footer.in
