@@ -1,8 +1,8 @@
 #dnl -*- mode: web; indent-tabs-mode: t -*-
 #include inc/header.in
-<h1>Hello</h1>
+<h1 id="hello">Hello</h1>
 
-<p>
+<p id="slogan3">
 	skonfig is a system configuration and automation
 	framework designed to work with all systems, from your
 	toaster to the data centre. All you need is an SSH

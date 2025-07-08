@@ -3,7 +3,7 @@
 #include inc/header.in
 <h1>Installation</h1>
 
-<h3>Requirements</h3>
+<h3 id="requirements">Requirements</h3>
 <p>
 	To use skonfig you need a computer where all of the
 	configuration is stored and which can run the
@@ -19,7 +19,7 @@
 	</ul>
 </p>
 
-<h3>Installation</h3>
+<h3 id="installation">Installation</h3>
 
 skonfig uses the <code>~/.skonfig</code> directory to store the
 configuration to be applied to your targets.

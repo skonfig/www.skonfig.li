@@ -167,39 +167,39 @@
 	<h3>Definitions</h3>
 
 	<dl>
-		<dt><tt>__cdist_dry_run</tt></dt>
+		<dt id="__cdist_dry_run"><tt>__cdist_dry_run</tt></dt>
 		<dd>
 			Set to <code>1</code> if skonfig is run with the <code>-n</code> option.
 		</dd>
 
-		<dt><tt>__explorer</tt></dt>
+		<dt id="__explorer"><tt>__explorer</tt></dt>
 		<dd>
 			In explorers: fully qualified path to other global explorers on target.<br />
 			In initial manifest: path to global explorer output.
 		</dd>
 
-		<dt><tt>__files</tt></dt>
+		<dt id="__files"><tt>__files</tt></dt>
 		<dd>
 			Path to the (merged) files directory of .skonfig
 		</dd>
 
-		<dt><tt>__global</tt></dt>
+		<dt id="__global"><tt>__global</tt></dt>
 		<dd>Fully qualified path to the local working directory.</dd>
 
-		<dt><tt>__manifest</tt></dt>
+		<dt id="__manifest"><tt>__manifest</tt></dt>
 		<dd>Fully qualified path to the (merged) .skonfig <code>manifest</code> directory.</dd>
 
-		<dt><tt>__messages_in</tt></dt>
+		<dt id="__messages_in"><tt>__messages_in</tt></dt>
 		<dd>
 			File to read messages from other types from.
 
 			Messages are lines in the form of: <code>&lt;__object_name&gt;:&lt;message&gt;</code>
 		</dd>
 
-		<dt><tt>__messages_out</tt></dt>
+		<dt id="__messages_out"><tt>__messages_out</tt></dt>
 		<dd>File to write to to send messages to other types.</dd>
 
-		<dt><tt>__object</tt></dt>
+		<dt id="__object"><tt>__object</tt></dt>
 		<dd>
 			Fully qualified path to the current object.
 			For scripts running on the config host this is a local path to the
@@ -208,7 +208,7 @@
 			target.
 		</dd>
 
-		<dt><tt>__object_id</tt></dt>
+		<dt id="__object_id"><tt>__object_id</tt></dt>
 		<dd>
 			The name of the object given by the user when creating it.<br />
 			<br />
@@ -216,35 +216,34 @@
 			Double slashes ("//") always result in an error.
 		</dd>
 
-
-		<dt><tt>__object_name</tt></dt>
+		<dt id="__object_name"><tt>__object_name</tt></dt>
 		<dd>&lt;type name&gt;/&lt;__object_id&gt;</dd>
 
-		<dt><tt>__target_host</tt></dt>
+		<dt id="__target_host"><tt>__target_host</tt></dt>
 		<dd>
 			The name of the target as specified by the user in the command line
 			when executing skonfig.
 		</dd>
 
-		<dt><tt>__target_hostname</tt></dt>
+		<dt id="__target_hostname"><tt>__target_hostname</tt></dt>
 		<dd>
 			The host name of the target, derived from <code>__target_host</code>
 			using <code>socket.gethostbyaddr(socket.getaddrinfo(__target_host))</code>.
 		</dd>
 
-		<dt><tt>__target_fqdn</tt></dt>
+		<dt id="__target_fqdn"><tt>__target_fqdn</tt></dt>
 		<dd>
 			The <abbr title="Fully Qualified Domain Name">FQDN</abbr> of the
 			target, derived from <code>__target_host</code> using
 			<code>socket.getfqdn(__target_host)</code>.
 		</dd>
 
-		<dt><tt>__type</tt></dt>
+		<dt id="__type"><tt>__type</tt></dt>
 		<dd>
 			Fully qualified path to the current type's source code.
 		</dd>
 
-		<dt><tt>__type_explorer</tt></dt>
+		<dt id="__type_explorer"><tt>__type_explorer</tt></dt>
 		<dd>
 			Fully qualified path to the directory the current type's other
 			explorers are stored in.

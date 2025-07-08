@@ -14,46 +14,46 @@
 </p>
 
 <dl>
-	<dt><tt>cpu_cores</tt></dt>
+	<dt id="cpu_cores"><tt>cpu_cores</tt></dt>
 	<dd>
 		The number of CPU cores available on the
 		target.<br />
 		Note that this number includes virtual SMT threads.
 	</dd>
-	<dt><tt>cpu_sockets</tt></dt>
+	<dt id="cpu_sockets"><tt>cpu_sockets</tt></dt>
 	<dd>The number of CPU sockets in use on the target.</dd>
-	<dt><tt>disks</tt></dt>
+	<dt id="disks"><tt>disks</tt></dt>
 	<dd>
 		Disks available on the target (excl. RAM disks,
 		floppies, CDROMs).<br />
 		The content is a space separated list of device
 		names (e.g. <tt>sda</tt> or <tt>wd0</tt>).
 	</dd>
-	<dt><tt>hostname</tt></dt>
+	<dt id="hostname"><tt>hostname</tt></dt>
 	<dd>The current (running) hostname of the target.</dd>
-	<dt><tt>init</tt></dt>
+	<dt id="init"><tt>init</tt></dt>
 	<dd>
 		The name of the init system (PID 1) on the target.
 #dnl TODO insert examples
 	</dd>
-	<dt><tt>interfaces</tt></dt>
+	<dt id="interfaces"><tt>interfaces</tt></dt>
 	<dd>
 		Network interfaces available on the target.
 		One interface name per line, sorted lexicographically.
 	</dd>
-	<dt><tt>kernel_name</tt></dt>
+	<dt id="kernel_name"><tt>kernel_name</tt></dt>
 	<dd>Name of the kernel running on the target (as reported by <b>uname</b>(1))</dd>
-	<dt><tt>lsb_codename</tt></dt>
+	<dt id="lsb_codename"><tt>lsb_codename</tt></dt>
 	<dd><abbr title="Linux Standard Base">LSB</abbr> codename</dd>
-	<dt><tt>lsb_description</tt></dt>
+	<dt id="lsb_description"><tt>lsb_description</tt></dt>
 	<dd><abbr title="Linux Standard Base">LSB</abbr> description</dd>
-	<dt><tt>lsb_id</tt></dt>
+	<dt id="lsb_id"><tt>lsb_id</tt></dt>
 	<dd><abbr title="Linux Standard Base">LSB</abbr> ID</dd>
-	<dt><tt>lsb_release</tt></dt>
+	<dt id="lsb_release"><tt>lsb_release</tt></dt>
 	<dd><abbr title="Linux Standard Base">LSB</abbr> release</dd>
-	<dt><tt>machine</tt></dt>
+	<dt id="machine"><tt>machine</tt></dt>
 	<dd>The processor architecture of the target.</dd>
-	<dt><tt>machine_type</tt></dt>
+	<dt id="machine_type"><tt>machine_type</tt></dt>
 	<dd>
 		The type of machine the target is (bare-metal, virtual machine,
 		container, chroot, etc.).
@@ -83,29 +83,29 @@
 			it will fall back to <code>physical</code>
 		</p>
 	</dd>
-	<dt><tt>memory</tt></dt>
+	<dt id="memory"><tt>memory</tt></dt>
 	<dd>
 		The amount of memory physically installed on the target in kiB
 		(kibibytes, base 2), or if that cannot be determined the amount
 		available to the operating system kernel.
 	</dd>
-	<dt><tt>os</tt></dt>
+	<dt id="os"><tt>os</tt></dt>
 	<dd>
 		The operating system running on the target (as a skonfig-specific
 		identifier, always lower-case).
 	</dd>
-	<dt><tt>os_release</tt></dt>
+	<dt id="os_release"><tt>os_release</tt></dt>
 	<dd>
 		The contents of the <b>os-release</b>(5) file.<br />
 		cf. <b>os-release</b>(5) and <a href="http://0pointer.de/blog/projects/os-release">http://0pointer.de/blog/projects/os-release</a>
 	</dd>
-	<dt><tt>os_version</tt></dt>
+	<dt id="os_version"><tt>os_version</tt></dt>
 	<dd>
 		The version of the operating system installed on the target.<br />
 		<b>NB:</b> the values differ among operating systems and are not
 		normalised in any way.
 	</dd>
-	<dt><tt>runlevel</tt></dt>
+	<dt id="runlevel"><tt>runlevel</tt></dt>
 	<dd>The runlevel the target is currently running in.</dd>
 </dl>
 #include ../inc/footer.in

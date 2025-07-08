@@ -16,10 +16,10 @@
 </p>
 
 <dl>
-	<dt>Agent-less</dt>
-	<dd>skonfig requires no complex server setups </dd>
+	<dt id="agent-less">Agent-less</dt>
+	<dd>skonfig requires no complex server setups.</dd>
 
-	<dt>No wasteful periodic runs</dt>
+	<dt id="no-periodic-runs">No wasteful periodic runs</dt>
 	<dd>
 		Being agent-less skonfig only runs when you tell it to. It does not do
 		any automatic periodic runs burning your CPU cycles.<br />
@@ -27,7 +27,7 @@
 		skonfig automatically, of course&hellip;
 	</dd>
 
-	<dt>It's just a shell</dt>
+	<dt id="just-shell">It's just a shell</dt>
 	<dd>
 		No need to have a degree as a Senior YAML Engineer or learn new
 		languages.
@@ -35,14 +35,14 @@
 		writing shell scripts will be enough to use all of skonfig.
 	</dd>
 
-	<dt>Rapid development</dt>
+	<dt id="rapid-development">Rapid development</dt>
 	<dd>
 		Most tasks can be solved quickly using already existing types.
 		If something cannot be solved using an existing type, creating new types
 		can be as simple as writing a simple shell script.
 	</dd>
 
-	<dt>Oh, you don't like the shell?</dt>
+	<dt id="dont-like-shell">Oh, you don't like the shell?</dt>
 	<dd>
 		I didn't know.
 		skonfig is polyglot. You can use every programming language you like as
