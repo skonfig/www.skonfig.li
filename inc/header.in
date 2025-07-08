@@ -3,9 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="en">
 <head>
 #include meta.in
+<style type="text/css">
+	body {
+		line-height: 1.25;
+	}
+	:target, dt:target + dd {
+		background-color: #eea;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: #000;
+			color: #eee;
+		}
+		a {color: #6e6eff}
+		a:visited {color: #956abd}
+	}
+</style>
+#if test -n "${CUSTOM_CSS-}"
+<link rel="stylesheet" type="text/css" href="%{CUSTOM_CSS}" />
+#endif
 </head>
 <body bgcolor="white">
-<font size="3">
 <table border="0" cellpadding="0" cellspacing="0" width="800">
 <tr id="header">
 <td id="page-title" align="right" valign="bottom" colspan="2">
